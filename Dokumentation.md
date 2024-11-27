@@ -1,6 +1,6 @@
-# Dokumentation M346-CMS
+# Dokumentation M346-Ticketsystem
 
-Dieses Repository wurde in Zusammenarbeit von Fabian Peter, Romeo Davatz und David Bürge erstellt. Diese Dokumentation beschreibt das gesamte Prokjekt von der Planung bis zum fertigen Script. Ebenfalls folgt eine Anleitung, wie das CMS anhand unseres Scriptes zu installieren ist.
+Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Janis Mora erstellt. Diese Dokumentation beschreibt das gesamte Prokjekt von der Planung bis zum fertigen Script. Ebenfalls folgt eine Anleitung, wie das Ticketsystem anhand unseres Scriptes zu installieren ist.
 
 [**1. Projektinformationen**](#anker)  
 [**1.1 CMS**](#anker1)  
@@ -14,23 +14,19 @@ Dieses Repository wurde in Zusammenarbeit von Fabian Peter, Romeo Davatz und Dav
 
 <a name="anker"></a>
 ## 1. Projektinformationen
-In diesem Abschnitt werden grundlegende Informationen zum Projekt wie die gegebene Aufgabe, Wahl des CMS und die Aufgabenverteilung in der Gruppe aufgezählt.
+In diesem Abschnitt werden grundlegende Informationen zum Projekt wie die gegebene Aufgabe, Wahl des Ticketsystem und die Aufgabenverteilung in der Gruppe aufgezählt.
 
 <a name="anker1"></a>
 ### 1.1 Aufgabenstellung
-Für das Prokjekt, musste ein CMS auf einer AWS instanz erstellt werden. Der installation der Instanzen und dem CMS sollte schlussendlich Automatisiert werden.. 
+Für das Prokjekt, musste ein Ticketsystem auf einer AWS instanz erstellt werden. Der installation der Instanzen und dem CMS sollte schlussendlich Automatisiert werden.. 
 
 <a name="anker2"></a>
-### 1.2 Wahl CMS  
-Ein Content-Management-System (CMS) ist eine Softwareanwendung, die es Benutzern ermöglicht, Inhalte auf Websites zu erstellen, zu bearbeiten und zu verwalten, ohne umfangreiche Programmierkenntnisse zu benötigen. Es ist eine effektive Lösung für die Verwaltung von digitalen Inhalten, sei es Texte, Bilder, Videos oder andere Medien.
-
-Das CMS bietet eine benutzerfreundliche Oberfläche, die es Benutzern ermöglicht, Inhalte direkt im Webbrowser zu erstellen und zu bearbeiten. Es ermöglicht die Organisation von Inhalten in einer hierarchischen Struktur, um eine einfache Navigation zu gewährleisten. Ein CMS erleichtert auch die Zusammenarbeit verschiedener Benutzer, indem es die Berechtigungen und Zugriffslevel verwaltet.
-
-Als CMS haben wir uns für WordPress entschieden, da uns dies bereits bekannt war. Ausserdem ist es eines der bekanntesten CMS, daher findet man man ausreichent Informationen und Dokumentationen im Internet, was uns die Arbeit erleichtern konnte.
+### 1.2 Wahl Ticketsystem  
+Zoho Desk ist ideal für ein Ticketsystem, da es verschiedene Kanäle integriert, sodass Sie Tickets zentral verwalten können. Es bietet umfangreiche Automatisierungsfunktionen, die Effizienz steigern, und lässt sich nahtlos mit Zoho CRM integrieren. Die Benutzeroberfläche ist intuitiv, und das System ist skalierbar, um den Anforderungen jeder Unternehmensgröße gerecht zu werden. Umfangreiche Support-Ressourcen stehen ebenfalls zur Verfügung, um Ihnen bei Bedarf zu helfen. Diese Vorteile verbessern die Supportprozesse und steigern die Kundenzufriedenheit.
 
 <a name="anker3"></a>
 ### 1.3 Aufgaben und Zuständigkeit
-Für das Prokelt musste das CMS umgesetzt werden, sowie eine ausführliche Dokumentation gestaltet werden. Grundsätzlich war jeder in der gruppe bei allem beteiligt. Trotzdem konzentirerten sich  Fabian und David eher auf die Installation des CMS, wobei sich Romeo ausführlicher mit der Dokumentation befasste. 
+Für das Prokelt musste das CMS umgesetzt werden, sowie eine ausführliche Dokumentation gestaltet werden. Grundsätzlich war jeder in der gruppe bei allem beteiligt. Trotzdem konzentirerten sich  Noé und Levin eher auf die Installation des CMS, wobei sich Janis ausführlicher mit der Dokumentation befasste. 
 
 <a name="anker4"></a>
 ## 2. Installation und Konfiguration
@@ -212,12 +208,12 @@ cd WordPressCMS/server-setup/docker
 <a name="anker7"></a>
 ## 5. Reflexion 
 
-**David Bürge**  
+**Levin Fritz**  
 Ich denke ich konnte in diesem Projekt sehr viel lernen. Besonders im Bezug auf die Fehlerbehebung. Das im Unterricht gelernte konnte nun auch praktisch angewendet werden. Anfangs hatten wir noch einige schwierigkeiten, da wir nicht richtig wussten wo und wie wir am Projekt beginnen sollten. Daher gibt es auch das Script [InstallInstances.sh](https://github.com/davidbuerge1/M346-CMS/blob/main/InstallInstances.sh). Nach einigem Informieren und ein wenig Starthilfe einer anderen Gruppe, konnte das Projekt jedoch erfolgreich abgeschlossen werden. Ich denke für ein nächstes Projekt, wäre vor allem die aufteilung der verschiedenen Arbeiten ein wichtiger Punkt. Insgesamt denke ich, dass das Projekt eine sehr interessante und lehrreiche Erfahrung war und denke, dass wir das Projekt erfolgreich abschliessen konnten.
 
-**Fabian Peter**  
+**Noé Messmer**  
 Für mich war das Projekt sehr interessant, ich habe viel neues daraus gelernt. Auch konnte ich schon gelerntes sehr gut anwenden. Da ich im Basislehrjahr als abschluss Projekt Nextcloud auf Debian installieren musste, waren mir vieles schon bekannt. Beispielsweise wusste ich genau wofür eine .conf-Datei verwendet wird und in welchem Verzeichnis sie liegt. Auch sehr Hilfreich war das Vorwissen zu allen Linux-Commands. Ich finde, dass uns in der Schule sehr gut die Verbindung zum AWS erklärt wurde, was somit keine grosse Herausforderung mehr war. Jedoch war das Skript ansich dafür viel schwerer. Es war nicht ganz einfach ein Skript von 0 auf zu schreiben. Das nächste mal würde ich die Kommunikation untereinander besser machen, damit nicht immer nur jemand daran arbeitet. Im grossen und ganze war aber sehr viel spannendes im Projekt dabei und ich denke wir haben es gut abgeschlossen. 
 
 
-**Romeo Davatz**  
+**Janis Mora**  
 Für mich war das Projekt eine gute Erfahrung. Ich konnte das, was ich im Unterricht gelernt habe praktisch anwenden. Wir konnten die Probleme gut angehen und sind wie ich denke zu einem guten ergebniss gekommen. Für ein späteres Projekt, könnten wir die Aufgabenverteilung in der Gruppe verbessern. 
