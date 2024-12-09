@@ -92,14 +92,18 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 <a name="anker6"></a>
 ## 4. Testfälle  
 **Testfall 1** 
-Überprüfe, ob der Webserver erreichbar ist.
+Titel: Überprüfe, ob der Webserver erreichbar ist.
+Datum: 09.12.2024
+Testperson: Levin Fritz
 
 ![image2](https://github.com/davidbuerge1/M346-CMS/blob/main/server-setup/207bb161-4192-4b38-9554-fa0202a65119.jpg)
 
 Die IP-Adressen werden mithilfe der unten stehenden Befehle ausgelesen. Der Fehler entstand, da auf dem AWS, auf dem die Instanzen installiert werden sollten bereits Instanzen mit dem gleichen Namen existierten. Daher konnte die IP-Adresse des Servers nicht ausgelesen werden. Im jetztigen Script haben wir dies korrigiert. Nun wurden keine weiteren fehler gefunden.
   
 **Testfall 2**  
-Teste die Verbindung zur Datenbank.
+Titel: Teste die Verbindung zur Datenbank.
+Datum: 09.12.2024
+Testperson: Levin Fritz
 
 Bei diesem Beispiel fehlt vor WordPressCMS das "/". Daher wurde das docker-compose auch nicht richtig ausgeführt
 ```
