@@ -8,6 +8,7 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
 [**1.3 Aufgaben und Zuständigkeit**](#anker3)  
 [**2. Installation und Konfiguration**](#anker4)  
 [**2.1 Erklärung des Codes**](#anker8)  
+[**2.2 Begründung für Terraform statt Cloud-Init**](#anker9) 
 [**3. Anleitung**](#anker5)  
 [**4. Testfälle**](#anker6)  
 [**5. Reflexion**](#anker7)
