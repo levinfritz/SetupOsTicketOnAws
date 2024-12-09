@@ -1,24 +1,35 @@
-
 provider "aws" {
-  region = "eu-central-1"
+  region = "us-east-1"
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+resource "tls_private_key" "deployer_key" {
+  algorithm = "RSA"
+  rsa_bits  = 2048
 }
 
-resource "aws_subnet" "subnet" {
-  vpc_id                  = aws_vpc.main.id
-  cidr_block              = "10.0.1.0/24"
-  map_public_ip_on_launch = true
+resource "local_file" "private_key" {
+  filename = "deployer_key.pem"
+  content  = tls_private_key.deployer_key.private_key_pem
 }
 
-resource "aws_security_group" "allow_http" {
-  vpc_id = aws_vpc.main.id
+resource "aws_key_pair" "deployer_key" {
+  key_name   = "deployer-key"
+  public_key = tls_private_key.deployer_key.public_key_openssh
+}
+
+resource "aws_security_group" "web_sg" {
+  name_prefix = "web-sg-"
 
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -31,33 +42,44 @@ resource "aws_security_group" "allow_http" {
   }
 }
 
-resource "aws_db_instance" "default" {
-  allocated_storage    = 20
-  engine               = "mysql"
-  engine_version       = "8.0"
-  instance_class       = "db.t2.micro"
-  name                 = "zoho_db"
-  username             = "admin"
-  password             = "admin123"
-  parameter_group_name = "default.mysql8.0"
-  skip_final_snapshot  = true
-}
-
-resource "aws_instance" "zoho_server" {
+resource "aws_instance" "web_server" {
   ami           = "ami-0c02fb55956c7d316"
   instance_type = "t2.micro"
-  subnet_id     = aws_subnet.subnet.id
-  security_groups = [aws_security_group.allow_http.name]
+  key_name      = aws_key_pair.deployer_key.key_name
+  security_groups = [aws_security_group.web_sg.name]
 
+  user_data = file("web-init.sh")
   tags = {
-    Name = "ZohoTicketSystem"
+    Name = "WebServer"
+  }
+}
+
+resource "aws_security_group" "db_sg" {
+  name_prefix = "db-sg-"
+
+  ingress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
-  user_data = <<-EOF
-#!/bin/bash
-apt update -y
-apt install -y apache2
-systemctl start apache2
-systemctl enable apache2
-  EOF
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_instance" "db_server" {
+  ami           = "ami-0c02fb55956c7d316"
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.deployer_key.key_name
+  security_groups = [aws_security_group.db_sg.name]
+
+  user_data = file("db-init.sh")
+  tags = {
+    Name = "DBServer"
+  }
 }

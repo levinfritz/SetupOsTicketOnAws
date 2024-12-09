@@ -192,14 +192,14 @@ Nachdem das Programm fertig durchgelaufen ist, dauert es einige Minuten, bis die
 <a name="anker6"></a>
 ## 4. Testfälle  
 **Testfall 1** 
-Wir hatten lange die Prtoblematik, dass die CMS-Instanz keine Verbindung mit der DB-Instanz herstellen konnte. Dabei erschien folgende Fehlermeldung.
+Überprüfe, ob der Webserver erreichbar ist.
 
 ![image2](https://github.com/davidbuerge1/M346-CMS/blob/main/server-setup/207bb161-4192-4b38-9554-fa0202a65119.jpg)
 
 Die IP-Adressen werden mithilfe der unten stehenden Befehle ausgelesen. Der Fehler entstand, da auf dem AWS, auf dem die Instanzen installiert werden sollten bereits Instanzen mit dem gleichen Namen existierten. Daher konnte die IP-Adresse des Servers nicht ausgelesen werden. Im jetztigen Script haben wir dies korrigiert. Nun wurden keine weiteren fehler gefunden.
   
 **Testfall 2**  
-Ausserdem hatten wir lange probleme mit den Speicherorten der verschiedenen Files. Oft wurde nicht richtig auf das File verwiesen. So konnten die Scripts auch nicht richtig ausgeführt werden.
+Teste die Verbindung zur Datenbank.
 
 Bei diesem Beispiel fehlt vor WordPressCMS das "/". Daher wurde das docker-compose auch nicht richtig ausgeführt
 ```

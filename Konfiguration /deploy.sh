@@ -1,26 +1,18 @@
-
 #!/bin/bash
-# AWS Deployment Script
-echo "Starting deployment..."
+set -e
 
-# Install Terraform if not installed
-if ! [ -x "$(command -v terraform)" ]; then
-  echo "Terraform not found. Installing..."
-  sudo apt update -y
-  sudo apt install -y wget unzip
-  wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
-  unzip terraform_1.5.7_linux_amd64.zip
-  sudo mv terraform /usr/local/bin/
-fi
+echo "Installiere Terraform..."
+sudo apt-get update -y
+sudo apt-get install -y wget unzip
+wget https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
+unzip terraform_1.5.5_linux_amd64.zip
+sudo mv terraform /usr/local/bin/
+rm terraform_1.5.5_linux_amd64.zip
 
-# Initialize and deploy Terraform
+echo "Initialisiere Terraform..."
 terraform init
+
+echo "Wende Terraform-Konfiguration an..."
 terraform apply -auto-approve
 
-echo "Infrastructure deployed. Proceeding with Zoho installation."
-
-# Get instance IP and run installation script
-INSTANCE_IP=$(terraform output -raw instance_ip)
-ssh -o StrictHostKeyChecking=no ubuntu@$INSTANCE_IP 'bash -s' < install_zoho.sh
-
-echo "Deployment completed. Access Zoho at http://$INSTANCE_IP"
+echo "Deployment abgeschlossen!"
