@@ -74,7 +74,8 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 ### 1. Voraussetzungen
 
 - AWS CLI ist installiert und konfiguriert.
-- Ein Ubuntu-Server ist verfügbar und mit den notwendigen Berechtigungen ausgestattet.
+- Eine Ubuntu Maschine ist verfügbar und mit den notwendigen Berechtigungen ausgestattet.
+- `git` ist installiert
 
 ### 2. Installation
 
