@@ -88,7 +88,7 @@ Wir haben uns bewusst dafür entschieden, Terraform-Skripte anstelle von Cloud-I
 Cloud-Init ist eine großartige Lösung für die erste Konfiguration von Instanzen, jedoch eignet sich Terraform besser für das Management und die Automatisierung der gesamten Infrastruktur. Daher haben wir uns entschieden, Terraform als primäres Tool zu verwenden, um die Infrastruktur bereitzustellen.
 
 <a name="anker5"></a>
-## 3. Anleitung
+## 3. Anleitung 
 
 ### 1. Voraussetzungen
 
