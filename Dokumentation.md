@@ -68,6 +68,24 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 
 - Installiert Terraform, initialisiert das Terraform-Projekt und führt die Infrastruktur-Bereitstellung aus.
 
+
+<a name="anker9"></a>
+### 2.2 Begründung für Terraform statt Cloud-Init
+
+Wir haben uns bewusst dafür entschieden, Terraform-Skripte anstelle von Cloud-Init-Skripten zu verwenden. Der Grund dafür ist, dass Terraform eine leistungsstarke und deklarative Methode zur Verwaltung der gesamten Infrastruktur bietet, die es uns ermöglicht, die Ressourcen wie EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaare konsistent und wiederholbar bereitzustellen. Hier einige der Hauptgründe:
+
+1. **Wiederholbarkeit und Konsistenz**: Terraform ermöglicht es uns, Infrastruktur als Code zu definieren, sodass die Bereitstellung in verschiedenen Umgebungen immer auf die gleiche Weise erfolgt. Dies stellt sicher, dass keine Abweichungen zwischen den Deployments auftreten.
+  
+2. **Zustandsmanagement**: Terraform speichert den Zustand der Infrastruktur, sodass wir leicht feststellen können, ob und wie die Infrastruktur geändert wurde. Dies erleichtert das Management und hilft uns, Änderungen nachzuvollziehen und zu testen.
+
+3. **Komplexität der Infrastruktur**: Das Projekt erfordert die Erstellung und Verwaltung mehrerer Ressourcen wie EC2-Instanzen und Sicherheitsgruppen. Terraform ist besser geeignet, um diese Infrastruktur effizient zu verwalten, da Cloud-Init-Skripte hauptsächlich für die Konfiguration der Instanzen gedacht sind und nicht die gesamte Infrastrukturabstraktion übernehmen.
+
+4. **Erweiterbarkeit**: Mit Terraform können wir die Infrastruktur in einer strukturierten Weise aufbauen und zukünftige Änderungen oder Erweiterungen problemlos umsetzen. Beispielsweise könnten wir zusätzliche EC2-Instanzen, S3-Buckets oder RDS-Datenbanken hinzufügen, ohne die gesamten Infrastrukturskripte neu zu schreiben.
+
+5. **Integration mit anderen Tools**: Terraform lässt sich leicht in CI/CD-Pipelines integrieren, was uns erlaubt, die Infrastruktur automatisch bei jeder Änderung zu aktualisieren.
+
+Cloud-Init ist eine großartige Lösung für die erste Konfiguration von Instanzen, jedoch eignet sich Terraform besser für das Management und die Automatisierung der gesamten Infrastruktur. Daher haben wir uns entschieden, Terraform als primäres Tool zu verwenden, um die Infrastruktur bereitzustellen.
+
 <a name="anker5"></a>
 ## 3. Anleitung
 
