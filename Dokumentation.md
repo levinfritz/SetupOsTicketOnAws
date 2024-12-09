@@ -92,9 +92,9 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 <a name="anker6"></a>
 ## 4. Testfälle  
 **Testfall 1** 
-Titel: Überprüfe, ob der Webserver erreichbar ist.
-Datum: 09.12.2024
-Testperson: Levin Fritz
+Titel: Überprüfe, ob der Webserver erreichbar ist.\n
+Datum: 09.12.2024\n
+Testperson: Levin Fritz\n
 
 ![image2](https://github.com/davidbuerge1/M346-CMS/blob/main/server-setup/207bb161-4192-4b38-9554-fa0202a65119.jpg)
 
