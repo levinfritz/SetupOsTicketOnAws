@@ -38,10 +38,11 @@ Für das Projekt musste das Ticketsystem umgesetzt sowie eine ausführliche Doku
 
 Für die Umsetzung haben wir verschiedene Skripte verwendet:
 
-- `levinfritz/M346-Levin-Noe-Janis/Konfiguration/main.tf`: Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren.
-- `levinfritz/M346-Levin-Noe-Janis/Konfiguration/web-init.sh`: Installiert und konfiguriert osTicket auf einer Apache-Instanz.
-- `levinfritz/M346-Levin-Noe-Janis/Konfiguration/db-init.sh`: Installiert und konfiguriert eine MariaDB-Instanz für osTicket.
-- `levinfritz/M346-Levin-Noe-Janis/Konfiguration/deploy.sh`: Automatisiert die Installation von Terraform und die Ausführung der Terraform-Skripte.
+- [`main.tf`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/main.tf): Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren.
+- [`web-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/web-init.sh): Installiert und konfiguriert osTicket auf einer Apache-Instanz.
+- [`db-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/db-init.sh): Installiert und konfiguriert eine MariaDB-Instanz für osTicket.
+- [`deploy.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/deploy.sh): Automatisiert die Installation von Terraform und die Ausführung der Terraform-Skripte.
+
 
 <a name="anker8"></a>
 ### 2.1 Erklärung des Codes
