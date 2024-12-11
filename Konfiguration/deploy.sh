@@ -15,4 +15,8 @@ terraform init
 echo "Wende Terraform-Konfiguration an..."
 terraform apply -auto-approve
 
-echo "Deployment abgeschlossen!"
+echo "Ermittle die öffentliche IP-Adresse des Webservers..."
+WEB_SERVER_IP=$(terraform output -raw aws_instance_web_server_public_ip)
+
+echo "Webserver-IP-Adresse: $WEB_SERVER_IP"
+echo "Sie können den Webserver nun unter folgender Adresse im Browser öffnen: http://$WEB_SERVER_IP"
