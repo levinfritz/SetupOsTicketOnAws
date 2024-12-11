@@ -15,10 +15,11 @@ Dieses Projekt erstellt eine AWS-Infrastruktur für ein Ticketsystem mit osTicke
 1. Klone das Repository:
    ```bash
    git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
-   cd M346-Levin-Noe-Janis
+   cd M346-Levin-Noe-Janis/Konfiguration
 
-2. Führe das deploy.sh Skript aus 
+2. Mache das  deploy.sh Skript ausführbar und führe es aus. 
     ```bash
+   chmod u+x deploy.sh
    ./deploy.sh
 
 3. Greife auf den Webserver zu: Öffne die IP-Adresse des Webservers in deinem Browser. 
