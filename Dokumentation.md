@@ -138,6 +138,10 @@ Testperson: Levin Fritz<br>
 ![image2](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)
 
 Nach der erfolgreichen Ausführung des Deploy Skripts habe ich versucht den Webserver über die Öffentliche IP-Adresse zu erreichen , dies hat wie im Screenshot zu sehen noch nicht geklappt, jedoch wurden die Instanzen und Sicherheitsgruppen richtig erstellt.
+
+Ich habe mich danach per SSH mit dem Webserver verbunden, um die Konfiguration zu überprüfen und habe festgestellt, dass ich noch zu früh bin und die Installation noch nicht abgeschlossen war. 
+
+Als Lösung habe ich dannn im Deploy.sh Skript eine Überprüfung eingebaut, die schaut ob die Installation auf dem Webserver bereits abgeschlossen ist oder nicht und anschliessend Rückmeldung gibt.
   
 **Testfall 2**  
 Titel: Teste die Verbindung zur Datenbank.<br>
