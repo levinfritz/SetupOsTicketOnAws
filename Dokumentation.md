@@ -135,9 +135,9 @@ Titel: Überprüfe, ob der Webserver erreichbar ist.<br>
 Datum: 09.12.2024<br>
 Testperson: Levin Fritz<br>
 
-![image2](https://github.com/davidbuerge1/M346-CMS/blob/main/server-setup/207bb161-4192-4b38-9554-fa0202a65119.jpg)
+![image2]()
 
-Die IP-Adressen werden mithilfe der unten stehenden Befehle ausgelesen. Der Fehler entstand, da auf dem AWS, auf dem die Instanzen installiert werden sollten bereits Instanzen mit dem gleichen Namen existierten. Daher konnte die IP-Adresse des Servers nicht ausgelesen werden. Im jetztigen Script haben wir dies korrigiert. Nun wurden keine weiteren fehler gefunden.
+Nach der erfolgreichen Ausführung des Deploy Skripts habe ich versucht den Webserver über die Öffentliche IP-Adresse zu erreichen , dies hat wie im Screenshot zu sehen noch nicht geklappt, jedoch wurden die Instanzen und Sicherheitsgruppen richtig erstellt.
   
 **Testfall 2**  
 Titel: Teste die Verbindung zur Datenbank.<br>
