@@ -51,18 +51,20 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
-# Webserver-Instanz
 resource "aws_instance" "web_server" {
   ami           = "ami-0c02fb55956c7d316" # Ubuntu 20.04 LTS
   instance_type = "t2.micro"
   key_name      = aws_key_pair.deployer_key.key_name
   security_groups = [aws_security_group.web_sg.name]
 
+  # Aktualisiertes web-init.sh
   user_data = file("web-init.sh")
+
   tags = {
     Name = "WebServer"
   }
 }
+
 
 # Sicherheitsgruppe für die Datenbank
 resource "aws_security_group" "db_sg" {

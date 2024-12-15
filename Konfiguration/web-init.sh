@@ -1,55 +1,50 @@
 #!/bin/bash
 set -e
 
-# Variablen
-DB_SERVER_PRIVATE_IP="<DB_SERVER_PRIVATE_IP>"
-DB_NAME="osticket"
-DB_USER="osticket_user"
-DB_PASSWORD="securepassword"
-
-# osTicket konfigurieren
+# Installiere Docker
 apt-get update -y
-apt-get install -y apache2 php php-mysql libapache2-mod-php unzip curl \
-  php-imap php-mbstring php-intl php-soap php-xml php-json
+apt-get install -y docker.io curl
 
-systemctl enable apache2
-systemctl start apache2
+# Installiere Docker Compose
+curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
 
-# osTicket herunterladen und entpacken
-mkdir -p /var/www/html/osticket
-curl -L https://github.com/osTicket/osTicket/releases/download/v1.18.1/osTicket-v1.18.1.zip -o /tmp/osTicket.zip
-unzip /tmp/osTicket.zip -d /var/www/html/osticket
-chown -R www-data:www-data /var/www/html/osticket
-rm /tmp/osTicket.zip
+# Erstelle das Arbeitsverzeichnis für osTicket
+mkdir -p /srv/osticket
+cd /srv/osticket
 
-# Apache-Konfiguration für osTicket
-cat <<EOF > /etc/apache2/sites-available/osticket.conf
-<VirtualHost *:80>
-    DocumentRoot /var/www/html/osticket
-    <Directory /var/www/html/osticket>
-        AllowOverride All
-        Require all granted
-    </Directory>
-</VirtualHost>
+# Docker Compose Datei erstellen
+cat <<EOF > docker-compose.yml
+version: '3.8'
+
+services:
+  web:
+    image: osticket/osticket:latest
+    container_name: osticket_web
+    ports:
+      - "80:80"
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: osticket
+      MYSQL_USER: osticket_user
+      MYSQL_PASSWORD: securepassword
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.5
+    container_name: osticket_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: osticket
+      MYSQL_USER: osticket_user
+      MYSQL_PASSWORD: securepassword
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
 EOF
 
-a2dissite 000-default.conf
-a2ensite osticket.conf
-a2enmod rewrite
-systemctl restart apache2
-
-# Automatische Konfiguration von osTicket
-cp /var/www/html/osticket/include/ost-sampleconfig.php /var/www/html/osticket/include/ost-config.php
-chmod 0666 /var/www/html/osticket/include/ost-config.php
-
-# Datenbankinformationen in die Konfiguration eintragen
-sed -i "s/'DBHOST', 'localhost'/'DBHOST', '$DB_SERVER_PRIVATE_IP'/g" /var/www/html/osticket/include/ost-config.php
-sed -i "s/'DBNAME', 'osTicket'/'DBNAME', '$DB_NAME'/g" /var/www/html/osticket/include/ost-config.php
-sed -i "s/'DBUSER', 'osticket'/'DBUSER', '$DB_USER'/g" /var/www/html/osticket/include/ost-config.php
-sed -i "s/'DBPASS', 'password'/'DBPASS', '$DB_PASSWORD'/g" /var/www/html/osticket/include/ost-config.php
-
-# Setup-Berechtigungen anpassen
-chmod -R 755 /var/www/html/osticket
-chown -R www-data:www-data /var/www/html/osticket
-
-echo "osTicket ist bereit. Rufen Sie die IP-Adresse des Webservers im Browser auf, um osTicket zu verwenden."
+# Starte die Docker-Container
+docker-compose up -d
