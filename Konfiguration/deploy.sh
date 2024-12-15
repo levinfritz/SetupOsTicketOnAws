@@ -34,7 +34,7 @@ done
 
 # Überprüfe den Status des Webservers per SSH
 echo "Überprüfe den Status des Webservers..."
-ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/Konfiguration/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
+ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
 if ! command -v docker &> /dev/null; then
   echo "Docker ist nicht installiert. Bitte überprüfen Sie das web-init.sh-Skript."
   exit 1
