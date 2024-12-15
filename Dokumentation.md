@@ -38,10 +38,18 @@ Für das Projekt musste das Ticketsystem umgesetzt sowie eine ausführliche Doku
 
 Für die Umsetzung haben wir verschiedene Skripte verwendet:
 
-- [`main.tf`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/main.tf): Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren.
-- [`web-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/web-init.sh): Installiert und konfiguriert osTicket auf einer Apache-Instanz.
-- [`db-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/db-init.sh): Installiert und konfiguriert eine MariaDB-Instanz für osTicket.
-- [`deploy.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/deploy.sh): Automatisiert die Installation von Terraform und die Ausführung der Terraform-Skripte.
+- **[`main.tf`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/main.tf):**  
+  Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren.
+
+- **[`web-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/web-init.sh):**  
+  Installiert und konfiguriert osTicket auf einer Apache-Instanz. Die Verbindung zur Datenbank wird automatisch hergestellt.
+
+- **[`db-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/db-init.sh):**  
+  Installiert und konfiguriert eine MariaDB-Instanz für osTicket. Es werden Datenbankname, Benutzer und Passwörter erstellt.
+
+- **[`deploy.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/deploy.sh):**  
+  Automatisiert die Installation von Terraform, führt die Terraform-Skripte aus und stellt sicher, dass die Datenbank-IP in die Webserver-Konfiguration eingefügt wird.
+
 
 
 <a name="anker8"></a>
@@ -49,27 +57,37 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 
 #### Terraform (`main.tf`)
 
-- Erstellung eines neuen SSH-Schlüsselpaares mit `tls_private_key`.
-- Definition der Sicherheitsgruppen für Web- und Datenbankzugriff.
-- Einrichtung von zwei EC2-Instanzen:
-  - Webserver mit osTicket
-  - Datenbankserver mit MariaDB
+- **Infrastruktur:** 
+  - Zwei EC2-Instanzen werden erstellt: eine für den Webserver und eine für die Datenbank.
+  - Sicherheitsgruppen regeln den Zugriff: HTTP/HTTPS für den Webserver und MySQL für die Datenbank.
+  - Die Datenbank-Instanz wird über ihre private IP-Adresse vom Webserver aus angesprochen.
+
+- **Outputs:** 
+  - Die öffentliche IP-Adresse des Webservers und die private IP-Adresse des Datenbankservers werden exportiert, um sie im Deploy-Skript zu verwenden.
 
 #### Webserver-Initialisierung (`web-init.sh`)
 
-- Installiert Apache, PHP und osTicket.
-- Konfiguriert Berechtigungen für die Webserver-Dateien.
+- Installiert alle notwendigen Pakete wie Apache, PHP und osTicket.
 - Lädt osTicket von GitHub herunter und entpackt es.
+- Passt die Datei `ost-config.php` automatisch an, um die Verbindung zur Datenbank herzustellen:
+  - Datenbank-Host, -Name, -Benutzer und -Passwort werden eingetragen.
 
 #### Datenbank-Initialisierung (`db-init.sh`)
 
-- Installiert MariaDB und erstellt die notwendige Datenbank und Benutzer für osTicket.
-- Konfiguriert MariaDB für den Zugriff durch den Webserver.
+- Installiert MariaDB und setzt die Basis-Konfiguration.
+- Erstellt die osTicket-Datenbank und einen dedizierten Benutzer für die Anwendung.
+- Aktiviert Remote-Zugriff auf die Datenbank und setzt entsprechende Berechtigungen.
 
 #### Deploy-Skript (`deploy.sh`)
 
-- Installiert Terraform, initialisiert das Terraform-Projekt und führt die Infrastruktur-Bereitstellung aus.
+- Installiert Terraform, initialisiert das Projekt und wendet die Konfiguration an.
+- Ermittelt die IP-Adressen der Instanzen und übergibt die private Datenbank-IP an das Webserver-Setup.
+- Gibt die öffentliche IP-Adresse des Webservers aus, um den Zugriff über den Browser zu ermöglichen.
 
+<a name="anker9"></a>
+### 2.2 Begründung für Terraform statt Cloud-Init
+
+Wir haben Terraform verwendet, da es deklarativ und wiederholbar ist. Es bietet eine robuste Möglichkeit, die gesamte Infrastruktur zu verwalten, und lässt sich leicht erweitern. 
 
 <a name="anker9"></a>
 ### 2.2 Begründung für Terraform statt Cloud-Init
