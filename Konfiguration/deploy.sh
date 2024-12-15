@@ -15,8 +15,15 @@ terraform init
 echo "Wende Terraform-Konfiguration an..."
 terraform apply -auto-approve
 
-echo "Ermittle die öffentliche IP-Adresse des Webservers..."
-WEB_SERVER_IP=$(terraform output -raw aws_instance_web_server_public_ip)
+# IP-Adressen ermitteln
+WEB_SERVER_PUBLIC_IP=$(terraform output -raw web_server_public_ip)
+DB_SERVER_PRIVATE_IP=$(terraform output -raw db_server_private_ip)
 
-echo "Webserver-IP-Adresse: $WEB_SERVER_IP"
-echo "Rufen Sie die folgende URL im Browser auf, um die Installation abzuschließen: http://$WEB_SERVER_IP/setup"
+echo "Webserver öffentliche IP: $WEB_SERVER_PUBLIC_IP"
+echo "Datenbankserver private IP: $DB_SERVER_PRIVATE_IP"
+
+# Die Datenbank-IP in das Webserver-Setup einfügen
+sed -i "s/<DB_SERVER_PRIVATE_IP>/$DB_SERVER_PRIVATE_IP/g" web-init.sh
+
+echo "Die Infrastruktur wurde erfolgreich bereitgestellt!"
+echo "Rufen Sie die folgende URL im Browser auf, um osTicket zu verwenden: http://$WEB_SERVER_PUBLIC_IP"
