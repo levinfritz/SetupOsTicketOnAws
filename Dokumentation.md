@@ -135,7 +135,7 @@ Titel: Überprüfe, ob der Webserver erreichbar ist.<br>
 Datum: 09.12.2024<br>
 Testperson: Levin Fritz<br>
 
-![image2]()
+![image2](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)
 
 Nach der erfolgreichen Ausführung des Deploy Skripts habe ich versucht den Webserver über die Öffentliche IP-Adresse zu erreichen , dies hat wie im Screenshot zu sehen noch nicht geklappt, jedoch wurden die Instanzen und Sicherheitsgruppen richtig erstellt.
   
