@@ -1,6 +1,6 @@
 #!/bin/bash
-apt-get update -y
-apt-get install -y mariadb-server
+sudo yum update -y
+sudo yum install -y mariadb-server
 
 # Start MariaDB
 systemctl enable mariadb
