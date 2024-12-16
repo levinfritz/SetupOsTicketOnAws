@@ -43,9 +43,9 @@ if [ ! -d "M346-Levin-Noe-Janis" ]; then
   git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
 fi
 
-# Führe das web-init.sh-Skript aus
+# Führe das web-init.sh-Skript mit sudo aus
 echo "Führe die Webserver-Initialisierung durch..."
-bash M346-Levin-Noe-Janis/Konfiguration/web-init.sh
+sudo bash M346-Levin-Noe-Janis/Konfiguration/web-init.sh
 EOF
 
 # Abschlussmeldung
