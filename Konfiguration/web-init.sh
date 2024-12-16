@@ -15,12 +15,24 @@ yum install -y docker git curl
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
-# Erstelle das Arbeitsverzeichnis für osTicket
-mkdir -p /srv/osticket
-cd /srv/osticket
+# Überprüfen, ob Docker Compose installiert ist
+if ! command -v docker-compose &> /dev/null; then
+    echo "Docker Compose konnte nicht installiert werden. Starte die Container manuell."
 
-# Docker Compose Datei erstellen
-cat <<EOF > docker-compose.yml
+    # Starte die Datenbank-Container manuell
+    docker run -d --name osticket_db -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=osticket -e MYSQL_USER=osticket_user -e MYSQL_PASSWORD='Riethuesli>12345s' mariadb:10.5
+
+    # Starte den Webserver-Container manuell
+    docker run -d --name osticket_web -p 80:80 --link osticket_db -e MYSQL_HOST=osticket_db -e MYSQL_DATABASE=osticket -e MYSQL_USER=osticket_user -e MYSQL_PASSWORD='Riethuesli>12345s' osticket/osticket:latest
+
+    echo "Die Container wurden manuell gestartet."
+else
+    # Erstelle das Arbeitsverzeichnis für osTicket
+    mkdir -p /srv/osticket
+    cd /srv/osticket
+
+    # Docker Compose Datei erstellen
+    cat <<EOF > docker-compose.yml
 version: '3.8'
 
 services:
@@ -52,5 +64,7 @@ volumes:
   db_data:
 EOF
 
-# Starte die Docker-Container
-docker-compose up -d
+    # Starte die Docker-Container mit Docker Compose
+    docker-compose up -d
+    echo "Die Container wurden mit Docker Compose gestartet."
+fi
