@@ -35,7 +35,7 @@ services:
       MYSQL_HOST: db
       MYSQL_DATABASE: osticket
       MYSQL_USER: osticket_user
-      MYSQL_PASSWORD: securepassword
+      MYSQL_PASSWORD: Riethuesli>12345
     depends_on:
       - db
 
