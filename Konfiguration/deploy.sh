@@ -26,7 +26,7 @@ echo "Die Webserver-Instanz wird gestartet. Bitte warten..."
 echo "Webserver IP: $WEB_SERVER_IP"
 
 # Timer für den Installationsprozess
-echo "Warte 10 Minuten, bis die Installation abgeschlossen ist..."
+echo "Warte 5 Minuten, bis die Installation abgeschlossen ist..."
 for i in {1..5}; do
   echo "Minute $i/5..."
   sleep 60
