@@ -38,6 +38,7 @@ echo "Überprüfe den Status des Webservers und führe die Initialisierung durch
 ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
 # Klone das Repository, falls noch nicht vorhanden
 if [ ! -d "M346-Levin-Noe-Janis" ]; then
+  sudo apt install git
   git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
 fi
 
