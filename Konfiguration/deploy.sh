@@ -3,12 +3,15 @@ set -e
 
 # Installiere Terraform
 echo "Installiere Terraform..."
-sudo apt-get update -y
-sudo apt-get install -y wget unzip
+sudo yum update -y
+sudo yum install -y wget unzip
 wget https://releases.hashicorp.com/terraform/1.5.5/terraform_1.5.5_linux_amd64.zip
 unzip terraform_1.5.5_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 rm terraform_1.5.5_linux_amd64.zip
+
+# Setze die Berechtigungen für den SSH-Schlüssel
+chmod 400 ~/M346-Levin-Noe-Janis/deployer_key.pem
 
 # Initialisiere Terraform
 echo "Initialisiere Terraform..."
@@ -27,18 +30,16 @@ echo "Webserver IP: $WEB_SERVER_IP"
 
 # Timer für den Installationsprozess
 echo "Warte 10 Minuten, bis die Installation abgeschlossen ist..."
-for i in {1..5}; do
-  echo "Minute $i/5..."
+for i in {1..10}; do
+  echo "Minute $i/10..."
   sleep 60
 done
 
-
-chmod 400 ~/M346-Levin-Noe-Janis/deployer_key.pem
+# Überprüfe den Status des Webservers per SSH und führe das web-init.sh-Skript aus
 echo "Überprüfe den Status des Webservers und führe die Initialisierung durch..."
 ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
 # Klone das Repository, falls noch nicht vorhanden
 if [ ! -d "M346-Levin-Noe-Janis" ]; then
-  sudo apt install git
   git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
 fi
 

@@ -1,9 +1,15 @@
 #!/bin/bash
 set -e
 
-# Installiere Docker
-apt-get update -y
-apt-get install -y docker.io curl
+# Überprüfen Sie, ob yum verfügbar ist
+if ! command -v yum &> /dev/null; then
+    echo "yum ist nicht verfügbar. Bitte installieren Sie die erforderlichen Pakete manuell."
+    exit 1
+fi
+
+# Installiere Docker und Git
+yum update -y
+yum install -y docker git curl
 
 # Installiere Docker Compose
 curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -27,7 +33,7 @@ services:
       MYSQL_HOST: db
       MYSQL_DATABASE: osticket
       MYSQL_USER: osticket_user
-      MYSQL_PASSWORD: securepassword
+      MYSQL_PASSWORD: Riethuesli>12345s
     depends_on:
       - db
 
@@ -38,7 +44,7 @@ services:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: osticket
       MYSQL_USER: osticket_user
-      MYSQL_PASSWORD: securepassword
+      MYSQL_PASSWORD: Riethuesli>12345s
     volumes:
       - db_data:/var/lib/mysql
 
