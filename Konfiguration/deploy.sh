@@ -32,20 +32,17 @@ for i in {1..10}; do
   sleep 60
 done
 
-# Überprüfe den Status des Webservers per SSH
-echo "Überprüfe den Status des Webservers..."
+# Überprüfe den Status des Webservers per SSH und führe das web-init.sh-Skript aus
+echo "Überprüfe den Status des Webservers und führe die Initialisierung durch..."
 ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
-if ! command -v docker &> /dev/null; then
-  echo "Docker ist nicht installiert. Bitte überprüfen Sie das web-init.sh-Skript."
-  exit 1
+# Klone das Repository, falls noch nicht vorhanden
+if [ ! -d "M346-Levin-Noe-Janis" ]; then
+  git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
 fi
 
-if ! docker ps &> /dev/null; then
-  echo "Docker ist installiert, aber keine Container laufen. Bitte überprüfen Sie die Logs."
-  exit 1
-fi
-
-echo "Docker und Container laufen wie erwartet!"
+# Führe das web-init.sh-Skript aus
+echo "Führe die Webserver-Initialisierung durch..."
+bash M346-Levin-Noe-Janis/Konfiguration/web-init.sh
 EOF
 
 # Abschlussmeldung
