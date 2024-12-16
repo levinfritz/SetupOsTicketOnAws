@@ -8,6 +8,6 @@ systemctl start mariadb
 
 # Configure database
 mysql -e "CREATE DATABASE osticket;"
-mysql -e "CREATE USER 'osticket_user'@'%' IDENTIFIED BY 'Riethuesli>12345s';"
+mysql -e "CREATE USER 'osticket_user'@'%' IDENTIFIED BY 'Riethuesli>12345';"
 mysql -e "GRANT ALL PRIVILEGES ON osticket.* TO 'osticket_user'@'%';"
 mysql -e "FLUSH PRIVILEGES;"
