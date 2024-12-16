@@ -10,6 +10,9 @@ unzip terraform_1.5.5_linux_amd64.zip
 sudo mv terraform /usr/local/bin/
 rm terraform_1.5.5_linux_amd64.zip
 
+# Setze die Berechtigungen für den SSH-Schlüssel
+chmod 400 ~/M346-Levin-Noe-Janis/deployer_key.pem
+
 # Initialisiere Terraform
 echo "Initialisiere Terraform..."
 terraform init
