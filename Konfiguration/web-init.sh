@@ -34,7 +34,7 @@ services:
     environment:
       MYSQL_HOST: <DB_SERVER_PRIVATE_IP>
       MYSQL_DATABASE: osticket
-      MYSQL_USER: osticket_user
+      MYSQL_USER: osticketuser
       MYSQL_PASSWORD: securepassword
     depends_on:
       - db
@@ -45,7 +45,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: osticket
-      MYSQL_USER: osticket_user
+      MYSQL_USER: osticketuser
       MYSQL_PASSWORD: securepassword
     volumes:
       - db_data:/var/lib/mysql
