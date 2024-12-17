@@ -18,12 +18,14 @@ terraform init
 echo "Wende Terraform-Konfiguration an..."
 terraform apply -auto-approve
 
-# Webserver-IP abrufen
+# Webserver- und Datenbankserver-IPs abrufen
 WEB_SERVER_IP=$(terraform output -raw web_server_public_ip)
+DB_SERVER_IP=$(terraform output -raw db_server_private_ip)
 
-# Zeige die Webserver-IP an
-echo "Die Webserver-Instanz wird gestartet. Bitte warten..."
+# Zeige die Server-IPs an
+echo "Die Server-Instanzen werden gestartet. Bitte warten..."
 echo "Webserver IP: $WEB_SERVER_IP"
+echo "Datenbankserver IP: $DB_SERVER_IP"
 
 # Timer für den Installationsprozess
 echo "Warte 5 Minuten, bis die Installation abgeschlossen ist..."
@@ -33,7 +35,23 @@ for i in {1..5}; do
 done
 
 chmod 400 ~/M346-Levin-Noe-Janis/deployer_key.pem
-echo "Überprüfe den Status des Webservers und führe die Initialisierung durch..."
+
+# Verbinde dich mit dem Datenbankserver und initialisiere ihn
+echo "Verbinde dich mit dem Datenbankserver und führe die Initialisierung durch..."
+ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$DB_SERVER_IP << 'EOF'
+# Klone das Repository, falls noch nicht vorhanden
+if [ ! -d "M346-Levin-Noe-Janis" ]; then
+  sudo yum install -y git
+  git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
+fi
+
+# Führe das db-init.sh-Skript aus
+echo "Führe die Datenbankserver-Initialisierung durch..."
+sudo bash M346-Levin-Noe-Janis/Konfiguration/db-init.sh
+EOF
+
+# Verbinde dich mit dem Webserver und initialisiere ihn
+echo "Verbinde dich mit dem Webserver und führe die Initialisierung durch..."
 ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
 # Klone das Repository, falls noch nicht vorhanden
 if [ ! -d "M346-Levin-Noe-Janis" ]; then
@@ -47,5 +65,5 @@ sudo bash M346-Levin-Noe-Janis/Konfiguration/web-init.sh
 EOF
 
 # Abschlussmeldung
-echo "Die Installation ist abgeschlossen! Öffnen Sie die folgende URL im Browser:"
-echo "http://$WEB_SERVER_IP"
+echo "Die Installation ist abgeschlossen!"
+echo "Webserver: http://$WEB_SERVER_IP"
