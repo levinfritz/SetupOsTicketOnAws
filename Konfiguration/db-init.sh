@@ -18,7 +18,7 @@ sleep 5
 echo "Richte die Datenbank ein..."
 sudo mysql <<EOF
 CREATE DATABASE IF NOT EXISTS osticket;
-CREATE USER IF NOT EXISTS 'osticket_user'@'%' IDENTIFIED BY 'securepassword';
+CREATE USER 'osticket_user'@'%' IDENTIFIED BY 'securepassword';
 GRANT ALL PRIVILEGES ON osticket.* TO 'osticket_user'@'%';
 FLUSH PRIVILEGES;
 EOF
