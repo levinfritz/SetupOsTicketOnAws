@@ -18,11 +18,7 @@ sleep 5
 echo "Richte die Datenbank ein..."
 sudo mysql <<EOF
 -- Erstelle die Datenbank, falls sie nicht existiert
-CREATE DATABASE IF NOT EXISTS osticket;
-
--- Entferne Berechtigungen und lösche den Benutzer, falls er existiert
-REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'osticketuser'@'%';
-DROP USER IF EXISTS 'osticketuser'@'%';
+CREATE DATABASE osticket;
 
 -- Erstelle den Benutzer neu
 CREATE USER 'osticketuser'@'%' IDENTIFIED BY 'securepassword';
