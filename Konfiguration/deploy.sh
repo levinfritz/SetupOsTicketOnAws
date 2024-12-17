@@ -21,6 +21,7 @@ terraform apply -auto-approve
 # Webserver- und Datenbankserver-IPs abrufen
 WEB_SERVER_IP=$(terraform output -raw web_server_public_ip)
 DB_SERVER_IP=$(terraform output -raw db_server_private_ip)
+DB_Server_IP_Public=$(terraform output -raw db_server_public_ip)
 
 # Zeige die Server-IPs an
 echo "Die Server-Instanzen werden gestartet. Bitte warten..."
@@ -38,7 +39,7 @@ chmod 400 ~/M346-Levin-Noe-Janis/deployer_key.pem
 
 # Verbinde dich mit dem Datenbankserver und initialisiere ihn
 echo "Verbinde dich mit dem Datenbankserver und führe die Initialisierung durch..."
-ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$DB_SERVER_IP << 'EOF'
+ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$DB_Server_IP_Public << 'EOF'
 # Klone das Repository, falls noch nicht vorhanden
 if [ ! -d "M346-Levin-Noe-Janis" ]; then
   sudo yum install -y git
