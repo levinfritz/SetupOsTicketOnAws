@@ -32,13 +32,12 @@ for i in {1..5}; do
   sleep 60
 done
 
-
 chmod 400 ~/M346-Levin-Noe-Janis/deployer_key.pem
 echo "Überprüfe den Status des Webservers und führe die Initialisierung durch..."
 ssh -o StrictHostKeyChecking=no -i ~/M346-Levin-Noe-Janis/deployer_key.pem ec2-user@$WEB_SERVER_IP << 'EOF'
 # Klone das Repository, falls noch nicht vorhanden
 if [ ! -d "M346-Levin-Noe-Janis" ]; then
-  sudo yum install git
+  sudo yum install -y git
   git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
 fi
 
