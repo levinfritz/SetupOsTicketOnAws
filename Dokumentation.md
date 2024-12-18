@@ -119,12 +119,12 @@ Cloud-Init ist eine großartige Lösung für die erste Konfiguration von Instanz
 3. Greife auf den Webserver zu: Öffne die IP-Adresse des Webservers in deinem Browser. 
 
 4. Führe die Installation von osTicket über den Browser aus:
-   Datenbankeinstellungen: 
-   Host: <DB_SERVER_PUBLIC_IP>
-   Datenbankname: osticket
-   Benutzername: osticketuser
-   Passwort: securepassword
-   Administrator-Benutzerdaten einrichten.
+   Datenbankeinstellungen:
+   - Host: <DB_SERVER_PUBLIC_IP>
+   - Datenbankname: osticket
+   - Benutzername: osticketuser
+   - Passwort: securepassword
+   - Administrator-Benutzerdaten einrichten.
 
 <a name="anker6"></a>
 ## 4. Testfälle  
