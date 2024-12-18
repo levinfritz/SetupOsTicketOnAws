@@ -1,61 +1,41 @@
 #!/bin/bash
 set -e
 
-# Docker installieren
-echo "Installiere Docker..."
+# Apache und PHP installieren
+echo "Installiere Apache und PHP 8.2..."
 sudo yum update -y
-sudo amazon-linux-extras enable docker
-sudo yum install -y docker
+sudo amazon-linux-extras enable php8.2
+sudo yum install -y httpd php php-mysqli wget unzip
 
-# Docker starten und aktivieren
-echo "Starte Docker..."
-sudo systemctl start docker
-sudo systemctl enable docker
+# Apache starten und aktivieren
+echo "Starte Apache..."
+sudo systemctl start httpd
+sudo systemctl enable httpd
 
-# Docker Compose installieren
-echo "Installiere Docker Compose..."
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-linux-x86_64" -o /usr/bin/docker-compose
-sudo chmod +x /usr/bin/docker-compose
+# osTicket herunterladen und einrichten
+echo "Lade osTicket herunter..."
+wget -O /tmp/osTicket.zip https://github.com/osTicket/osTicket/releases/download/v1.18.1/osTicket-v1.18.1.zip
+sudo mkdir -p /var/www/html/osticket
+sudo unzip /tmp/osTicket.zip -d /var/www/html/osticket
 
-# Docker-Setup für osTicket
-echo "Richte Docker-Setup ein..."
-sudo mkdir -p /srv/osticket
-cd /srv/osticket
+# Berechtigungen anpassen
+echo "Passe Berechtigungen an..."
+sudo chown -R apache:apache /var/www/html/osticket
+sudo chmod -R 755 /var/www/html/osticket
 
-cat <<EOF > docker-compose.yml
-version: '3.8'
+# Konfigurationsdateien verschieben
+echo "Kopiere Konfigurationsdateien..."
+cd /var/www/html/osticket/upload
+sudo mv include/ost-sampleconfig.php include/ost-config.php
+sudo chmod 0666 include/ost-config.php
 
-services:
-  web:
-    image: osticket/osticket:latest
-    container_name: osticket_web
-    ports:
-      - "80:80"
-    environment:
-      MYSQL_HOST: <DB_SERVER_PRIVATE_IP>
-      MYSQL_DATABASE: osticket
-      MYSQL_USER: osticketuser
-      MYSQL_PASSWORD: securepassword
-    depends_on:
-      - db
+# Firewall-Regeln für HTTP
+echo "Konfiguriere Firewall..."
+sudo firewall-cmd --add-service=http --permanent
+sudo firewall-cmd --reload
 
-  db:
-    image: mariadb:10.5
-    container_name: osticket_db
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: osticket
-      MYSQL_USER: osticketuser
-      MYSQL_PASSWORD: securepassword
-    volumes:
-      - db_data:/var/lib/mysql
+# Apache neu starten
+echo "Starte Apache neu..."
+sudo systemctl restart httpd
 
-volumes:
-  db_data:
-EOF
-
-# Docker Compose starten
-echo "Starte osTicket-Container..."
-sudo docker-compose up -d
-
-echo "Webserver ist eingerichtet und osTicket läuft!"
+echo "Webserver ist eingerichtet! Besuchen Sie die URL, um osTicket zu konfigurieren."
