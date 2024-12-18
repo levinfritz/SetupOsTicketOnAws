@@ -139,7 +139,7 @@ Nach der erfolgreichen Ausführung des Deploy Skripts habe ich versucht den Webs
 
 Ich habe mich danach per SSH mit dem Webserver verbunden, um die Konfiguration zu überprüfen und habe festgestellt, dass ich noch zu früh bin und die Installation noch nicht abgeschlossen war. 
 
-Als Lösung habe ich dannn im Deploy.sh Skript eine Überprüfung eingebaut, die schaut ob die Installation auf dem Webserver bereits abgeschlossen ist oder nicht und anschliessend Rückmeldung gibt.
+Als Lösung habe ich dannn im Deploy.sh Skript eine Überprüfung eingebaut, die schaut ob die Installation auf dem Webserver bereits abgeschlossen ist oder nicht und anschliessend Rückmeldung gibt. Standardmässig habe ich ebenfalls einen 5 Minuten Timer eingebaut, damit den Servern genug Zeit für die Installation gelassen wird.
   
 **Testfall 2**  
 Titel: Teste die Verbindung zur Datenbank.<br>
@@ -147,9 +147,9 @@ Datum: 09.12.2024<br>
 Testperson: Levin Fritz<br>
 
 Ich habe die Verbindung zur Datenbank über die MariaDB CLI getestet. Die Datenbank und der Benutzer wurden korrekt eingerichtet und waren vom Webserver aus erreichbar.
-```
-cd WordPressCMS/server-setup/docker
-```
+
+![image3](Bild wo die Datenbankkonfiguration erfolgreich durchgeführt werden konnte)
+
 <a name="anker7"></a>
 ## 5. Reflexion 
 
