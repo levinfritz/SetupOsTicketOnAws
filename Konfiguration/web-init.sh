@@ -18,24 +18,33 @@ wget -O /tmp/osTicket.zip https://github.com/osTicket/osTicket/releases/download
 sudo mkdir -p /var/www/html/osticket
 sudo unzip /tmp/osTicket.zip -d /var/www/html/osticket
 
+# Verschiebe osTicket-Dateien in das Apache-Webroot
+echo "Verschiebe osTicket-Dateien ins Webroot..."
+sudo mv /var/www/html/osticket/upload/* /var/www/html/
+sudo rm -rf /var/www/html/osticket  # Entferne das alte Verzeichnis
+
 # Berechtigungen anpassen
 echo "Passe Berechtigungen an..."
-sudo chown -R apache:apache /var/www/html/osticket
-sudo chmod -R 755 /var/www/html/osticket
+sudo chown -R apache:apache /var/www/html
+sudo chmod -R 755 /var/www/html
+sudo chmod 0666 /var/www/html/include/ost-config.php
 
-# Konfigurationsdateien verschieben
-echo "Kopiere Konfigurationsdateien..."
-cd /var/www/html/osticket/upload
-sudo mv include/ost-sampleconfig.php include/ost-config.php
-sudo chmod 0666 include/ost-config.php
-
-# Firewall-Regeln für HTTP
-echo "Konfiguriere Firewall..."
-sudo firewall-cmd --add-service=http --permanent
-sudo firewall-cmd --reload
+# Apache-Konfiguration aktualisieren
+echo "Passe Apache-Konfiguration an..."
+sudo sed -i "s|DocumentRoot \"/var/www/html\"|DocumentRoot \"/var/www/html\"|" /etc/httpd/conf/httpd.conf
+cat <<EOF | sudo tee /etc/httpd/conf.d/osticket.conf
+<Directory "/var/www/html">
+    AllowOverride All
+    Require all granted
+</Directory>
+EOF
 
 # Apache neu starten
 echo "Starte Apache neu..."
 sudo systemctl restart httpd
+
+# PHP-Info-Seite erstellen (optional, für Tests)
+echo "Erstelle PHP-Info-Seite..."
+echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 
 echo "Webserver ist eingerichtet! Besuchen Sie die URL, um osTicket zu konfigurieren."
