@@ -27,12 +27,27 @@ echo "Die Server-Instanzen werden gestartet. Bitte warten..."
 echo "Webserver IP: $WEB_SERVER_IP"
 echo "Datenbankserver IP: $DB_SERVER_PUBLIC_IP"
 
-# Timer für den Installationsprozess
-echo "Warte 5 Minuten, bis die Installation abgeschlossen ist..."
-for i in {1..5}; do
-  echo "Minute $i/5..."
-  sleep 60
+#Timer auf 4 Minuten mit Statusanzeige
+echo "Warte 4 Minuten, bis die Installation abgeschlossen ist..."
+
+total_minutes=4
+total_seconds=$((total_minutes * 60)) 
+bar_length=20                        
+for ((elapsed_seconds=0; elapsed_seconds<=total_seconds; elapsed_seconds+=1)); do
+  percent=$((elapsed_seconds * 100 / total_seconds))
+  filled_length=$((percent * bar_length / 100))
+
+  bar=$(printf "%-${bar_length}s" "=" | tr ' ' '=')
+  arrow=">"
+  bar="[${bar:0:filled_length}${arrow}${bar:filled_length:bar_length}]"
+  
+  echo -ne "${percent}% ${bar}\r"
+  
+  sleep 1
 done
+
+# Abschlussmeldung
+echo -e "\nInstallation abgeschlossen!"
 
 # Abschlussmeldung
 echo "Die Installation ist abgeschlossen!"
