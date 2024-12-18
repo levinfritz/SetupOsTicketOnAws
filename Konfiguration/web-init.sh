@@ -22,6 +22,7 @@ sudo unzip -o /tmp/osTicket.zip -d /var/www/html/osticket
 echo "Verschiebe osTicket-Dateien ins Webroot..."
 if [ -d "/var/www/html/osticket/upload" ]; then
     sudo cp -r /var/www/html/osticket/upload/* /var/www/html/
+    cp include/ost-sampleconfig.php include/ost-config.php
     # Dateien kopieren
     sudo rm -rf /var/www/html/osticket/upload # Temporäre Dateien entfernen
 fi
