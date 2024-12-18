@@ -126,7 +126,7 @@ Cloud-Init ist eine großartige Lösung für die erste Konfiguration von Instanz
    - Passwort: securepassword
    - Administrator-Benutzerdaten einrichten.
 
-![image](Bild der Datenbank konfiguration)
+![image](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
 <a name="anker6"></a>
 ## 4. Testfälle  
