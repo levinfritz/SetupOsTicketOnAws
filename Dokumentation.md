@@ -126,8 +126,9 @@ Cloud-Init ist eine großartige Lösung für die erste Konfiguration von Instanz
    - MySQL Database: osticket
    - MySQL Username: osticketuser
    - MySQL Password: securepassword  
-   Klicke Anschliessend auf "Install Now"
+   Klicke Anschliessend auf "Install Now"  
 
+6. Mögliche Lösung  
 ![image](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
 <a name="anker6"></a>
@@ -137,7 +138,7 @@ Titel: Überprüfe, ob der Webserver erreichbar ist.<br>
 Datum: 09.12.2024<br>
 Testperson: Levin Fritz<br>
 
-![image2](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)
+![image2](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)  
 
 Nach der erfolgreichen Ausführung des Deploy Skripts habe ich versucht den Webserver über die Öffentliche IP-Adresse zu erreichen , dies hat wie im Screenshot zu sehen noch nicht geklappt, jedoch wurden die Instanzen und Sicherheitsgruppen richtig erstellt.
 
@@ -152,7 +153,7 @@ Testperson: Levin Fritz<br>
 
 Ich habe die Verbindung zur Datenbank über die MariaDB CLI getestet. Die Datenbank und der Benutzer wurden korrekt eingerichtet und waren vom Webserver aus erreichbar.
 
-![image3](Bild wo die Datenbankkonfiguration erfolgreich durchgeführt werden konnte)
+![image3](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Erfolgreiche%20Installation.png)
 
 <a name="anker7"></a>
 ## 5. Reflexion 
