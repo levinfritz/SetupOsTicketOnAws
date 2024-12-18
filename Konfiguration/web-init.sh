@@ -16,18 +16,26 @@ sudo systemctl enable httpd
 echo "Lade osTicket herunter..."
 wget -O /tmp/osTicket.zip https://github.com/osTicket/osTicket/releases/download/v1.18.1/osTicket-v1.18.1.zip
 sudo mkdir -p /var/www/html/osticket
-sudo unzip /tmp/osTicket.zip -d /var/www/html/osticket
+sudo unzip -o /tmp/osTicket.zip -d /var/www/html/osticket
 
 # Verschiebe osTicket-Dateien in das Apache-Webroot
 echo "Verschiebe osTicket-Dateien ins Webroot..."
-sudo mv /var/www/html/osticket/upload/* /var/www/html/
-sudo rm -rf /var/www/html/osticket  # Entferne das alte Verzeichnis
+if [ -d "/var/www/html/osticket/upload" ]; then
+    sudo cp -r /var/www/html/osticket/upload/* /var/www/html/
+    # Dateien kopieren
+    sudo rm -rf /var/www/html/osticket/upload # Temporäre Dateien entfernen
+fi
+
+# Entferne das alte osTicket-Verzeichnis, falls vorhanden
+sudo rm -rf /var/www/html/osticket
+
+# Erstelle das include-Verzeichnis, falls es nicht existiert
+sudo mkdir -p /var/www/html/include
 
 # Berechtigungen anpassen
 echo "Passe Berechtigungen an..."
 sudo chown -R apache:apache /var/www/html
 sudo chmod -R 755 /var/www/html
-sudo chmod 0666 /var/www/html/include/ost-config.php
 
 # Apache-Konfiguration aktualisieren
 echo "Passe Apache-Konfiguration an..."
@@ -48,3 +56,4 @@ echo "Erstelle PHP-Info-Seite..."
 echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 
 echo "Webserver ist eingerichtet! Besuchen Sie die URL, um osTicket zu konfigurieren."
+echo "Bitte beachten Sie, dass die Datei ost-config.php während der Webkonfiguration erstellt wird."
