@@ -188,11 +188,14 @@ Das Projekt umfasste die Einrichtung des Ticketsystems und die Erstellung einer 
 
 Terraform bietet eine leistungsstarke und deklarative Methode zur Verwaltung der gesamten Infrastruktur. Dies ermöglicht eine konsistente Bereitstellung und Verwaltung von Ressourcen wie EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren. Vorteile im Vergleich zu Cloud-Init:
 
-1. **Wiederholbarkeit und Konsistenz:** Infrastruktur als Code sorgt für konsistente Deployments in unterschiedlichen Umgebungen.
-2. **Zustandsmanagement:** Terraform speichert den Infrastrukturzustand, was die Nachverfolgung von Änderungen erleichtert.
-3. **Komplexitätsmanagement:** Terraform eignet sich hervorragend für die Verwaltung mehrerer Ressourcen.
-4. **Erweiterbarkeit:** Infrastruktur kann strukturiert erweitert werden, z. B. durch Hinzufügen von EC2-Instanzen oder S3-Buckets.
-5. **Integration:** Terraform lässt sich problemlos in CI/CD-Pipelines integrieren.
+| Punkt                      | Beschreibung                                                   |
+|----------------------------|----------------------------------------------------------------|
+| **Wiederholbarkeit und Konsistenz** | Infrastruktur als Code sorgt für konsistente Deployments in unterschiedlichen Umgebungen. |
+| **Zustandsmanagement**      | Terraform speichert den Infrastrukturzustand, was die Nachverfolgung von Änderungen erleichtert. |
+| **Komplexitätsmanagement**  | Terraform eignet sich hervorragend für die Verwaltung mehrerer Ressourcen. |
+| **Erweiterbarkeit**         | Infrastruktur kann strukturiert erweitert werden, z. B. durch Hinzufügen von EC2-Instanzen oder S3-Buckets. |
+| **Integration**             | Terraform lässt sich problemlos in CI/CD-Pipelines integrieren. |
+
 
 Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht jedoch für das umfassende Infrastrukturmanagement.
 
