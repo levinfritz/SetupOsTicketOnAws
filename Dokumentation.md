@@ -9,8 +9,8 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
    1.2 [Wahl des Ticketsystems](#wahl-des-ticketsystems)  
    1.3 [Aufgaben und Zuständigkeiten](#aufgaben-und-zuständigkeiten)  
 2. [Installation und Konfiguration](#installation-und-konfiguration)  
-   1.1 [Erklärung des Codes](#erklärung-des-codes)  
-   1.2 [Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)  
+   2.1 [Erklärung des Codes](#erklärung-des-codes)  
+   2.2 [Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)  
 3. [Anleitung](#anleitung)  
 4. [Testfälle](#testfälle)  
 5. [Reflexion](#reflexion)  
@@ -19,7 +19,7 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
 
 ### 1.1 Aufgabenstellung
 
-Für das Projekt sollte ein Ticketsystem auf einer AWS-Instanz eingerichtet werden. Die Installation der Instanzen und des CMS sollte automatisiert erfolgen.
+Für das Projekt sollte ein Ticketsystem auf einer AWS-Instanz eingerichtet werden. Die Installation der Instanzen und von OS-Ticket sollte automatisiert erfolgen.
 
 ### 1.2 Wahl des Ticketsystems
 
@@ -45,37 +45,96 @@ Das Projekt umfasste die Umsetzung des Ticketsystems und die Erstellung einer au
 - **[`deploy.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/deploy.sh):**  
   Automatisiert die Installation von Terraform, führt die Terraform-Skripte aus und stellt sicher, dass die Datenbank-IP in die Webserver-Konfiguration eingefügt wird.
 
+
 ### 2.1 Erklärung des Codes
 
 #### Terraform (`main.tf`)
-
-- **Infrastruktur:**
   - Zwei EC2-Instanzen werden erstellt: eine für den Webserver und eine für die Datenbank.
   - Sicherheitsgruppen regeln den Zugriff: HTTP/HTTPS für den Webserver und MySQL für die Datenbank.
   - Die Datenbank-Instanz wird über ihre private IP-Adresse vom Webserver aus angesprochen.
-
-- **Outputs:**
   - Die öffentliche IP-Adresse des Webservers und die private IP-Adresse des Datenbankservers werden exportiert, um sie im Deploy-Skript zu verwenden.
 
-#### Webserver-Initialisierung (`web-init.sh`)
+- **Beispiel: Sicherheitsgruppe für den Webserver**  
+  ```hcl
+  resource "aws_security_group" "web_sg" {
+    name_prefix = "web-sg-"
+    ingress {
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+    egress {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+  }
+  ```  
+  **Erklärung:** Diese Sicherheitsgruppe erlaubt HTTP-Zugriff (Port 80) von allen IP-Adressen und alle ausgehenden Verbindungen.  
 
+- **Outputs:**  
+  ```hcl
+  output "web_server_public_ip" {
+    value = aws_instance.web_server.public_ip
+  }
+  ```  
+  **Erklärung:** Die öffentliche IP-Adresse des Webservers wird exportiert, damit sie später im `deploy.sh`-Skript verwendet werden kann.
+
+#### Webserver-Initialisierung (`web-init.sh`)
 - Installiert alle notwendigen Pakete wie Apache, PHP und osTicket.
 - Lädt osTicket von GitHub herunter und entpackt es.
 - Verschiebt die osTicket-Dateien in das Webroot-Verzeichnis von Apache.
 - Passt die Datei `ost-config.php` automatisch an, um die Verbindung zur Datenbank herzustellen:
-  - Datenbank-Host, -Name, -Benutzer und -Passwort werden eingetragen.
+  - Datenbank-Host, -Name, -Benutzer und -Passwort werden eingetragen.  
+
+- **Installation von Apache und PHP**  
+  ```bash
+  sudo yum install -y httpd php php-mysqli wget unzip
+  ```  
+  **Erklärung:** Dieser Befehl installiert den Apache-Webserver, PHP und zusätzliche PHP-Module, die für osTicket erforderlich sind.
+
+- **Herunterladen von osTicket**  
+  ```bash
+  wget -O /tmp/osTicket.zip https://github.com/osTicket/osTicket/releases/download/v1.18.1/osTicket-v1.18.1.zip
+  ```  
+  **Erklärung:** osTicket wird von der offiziellen GitHub-Seite heruntergeladen und lokal gespeichert.
 
 #### Datenbank-Initialisierung (`db-init.sh`)
-
 - Installiert MariaDB und setzt die Basis-Konfiguration.
 - Erstellt die osTicket-Datenbank und einen dedizierten Benutzer für die Anwendung.
 - Aktiviert Remote-Zugriff auf die Datenbank und setzt entsprechende Berechtigungen.
 
-#### Deploy-Skript (`deploy.sh`)
+- **Erstellung der Datenbank und Benutzer**  
+  ```sql
+  CREATE DATABASE osticket;
+  CREATE USER 'osticketuser'@'%' IDENTIFIED BY 'securepassword';
+  GRANT ALL PRIVILEGES ON osticket.* TO 'osticketuser'@'%';
+  FLUSH PRIVILEGES;
+  ```  
+  **Erklärung:** Es wird eine neue Datenbank `osticket` erstellt, und der Benutzer `osticketuser` erhält vollständige Zugriffsrechte.
 
+#### Deploy-Skript (`deploy.sh`)
 - Installiert Terraform, initialisiert das Projekt und wendet die Konfiguration an.
 - Ermittelt die IP-Adressen der Instanzen und übergibt die private Datenbank-IP an das Webserver-Setup.
-- Gibt die öffentliche IP-Adresse des Webservers aus, um den Zugriff über den Browser zu ermöglichen.
+- Gibt die öffentliche IP-Adresse des Webservers aus, um den Zugriff über den Browser zu ermöglichen. 
+
+- **Initialisierung von Terraform**  
+  ```bash
+  terraform init
+  ```  
+  **Erklärung:** Dieser Befehl initialisiert das Terraform-Projekt, lädt benötigte Plugins und überprüft die Konfiguration.
+
+- **Timer für Statusanzeige**  
+  ```bash
+  for ((elapsed_seconds=0; elapsed_seconds<=total_seconds; elapsed_seconds+=1)); do
+    echo -ne "${percent}% [${bar}]
+"
+    sleep 1
+  done
+  ```  
+  **Erklärung:** Dieser Timer zeigt den Fortschritt der Installation an und wartet, bis die Konfiguration abgeschlossen ist.
 
 ### 2.2 Begründung für Terraform statt Cloud-Init
 
@@ -94,7 +153,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 ### Voraussetzungen
 
 - AWS CLI ist installiert und konfiguriert.
-- Eine Ubuntu-Maschine ist verfügbar und mit den notwendigen Berechtigungen ausgestattet.
+- Eine Linux-Maschine ist verfügbar und mit den notwendigen Berechtigungen ausgestattet.
 - `git` ist installiert.
 
 ### Schritte
@@ -117,7 +176,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
    - **MySQL Username:** `osticketuser`
    - **MySQL Password:** `securepassword`
    Klicke anschließend auf **Install Now**.
-6. Beispiel:
+6. Mögliche Lösung:
    ![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
 ## 4. Testfälle
