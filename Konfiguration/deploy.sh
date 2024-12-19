@@ -22,10 +22,6 @@ terraform apply -auto-approve
 WEB_SERVER_IP=$(terraform output -raw web_server_public_ip)
 DB_SERVER_PUBLIC_IP=$(terraform output -raw db_server_public_ip)
 
-# Zeige die Server-IPs an
-echo "Webserver IP: $WEB_SERVER_IP"
-echo "Datenbankserver IP: $DB_SERVER_PUBLIC_IP"
-
 #Timer auf 4 Minuten mit Statusanzeige
 echo "Warte 4 Minuten, bis die Installation abgeschlossen ist..."
 
