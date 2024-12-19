@@ -166,9 +166,19 @@ Das Projekt umfasste die Umsetzung des Ticketsystems und die Erstellung einer au
 
 - **Wartezeit während der Installation:**
   ```bash
-  for ((elapsed_seconds=0; elapsed_seconds<=240; elapsed_seconds+=1)); do
-    echo -ne "${elapsed_seconds}s elapsed...
-"
+  total_minutes=4
+  total_seconds=$((total_minutes * 60)) 
+  bar_length=20                        
+  for ((elapsed_seconds=0; elapsed_seconds<=total_seconds; elapsed_seconds+=1)); do
+    percent=$((elapsed_seconds * 100 / total_seconds))
+    filled_length=$((percent * bar_length / 100))
+
+    bar=$(printf "%-${bar_length}s" "=" | tr ' ' '=')
+    arrow=">"
+    bar="[${bar:0:filled_length}${arrow}${bar:filled_length:bar_length}]"
+    
+    echo -ne "${percent}% ${bar}\r"
+    
     sleep 1
   done
   ```
