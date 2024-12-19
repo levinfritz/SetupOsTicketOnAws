@@ -19,15 +19,15 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
 
 ### 1.1 Aufgabenstellung
 
-Für das Projekt sollte ein Ticketsystem auf einer AWS-Instanz eingerichtet werden. Die Installation der Instanzen und von OS-Ticket sollte automatisiert erfolgen.
+Für das Projekt sollte ein Ticketsystem auf einer AWS-Instanz eingerichtet werden. Ziel war es, sowohl die Installation der Instanzen als auch die Installation von OS-Ticket zu automatisieren, um den Prozess effizient und wiederholbar zu gestalten. Dies beinhaltete die Konfiguration der notwendigen Server, Netzwerke und Datenbanken sowie die Bereitstellung des Ticketsystems. Die Automatisierung sollte den gesamten Installations- und Setup-Prozess abdecken, um menschliche Fehler zu minimieren und die Bereitstellung zu beschleunigen.
 
 ### 1.2 Wahl des Ticketsystems
 
-Wir haben uns für osTicket entschieden, da es eine stabile Open-Source-Lösung mit umfangreichen Funktionen ist. Es bietet eine benutzerfreundliche Oberfläche, flexible Konfigurationsmöglichkeiten und Unterstützung für mehrere Kommunikationskanäle.
+Wir haben uns für osTicket entschieden, da es eine stabile Open-Source-Lösung mit umfangreichen Funktionen bietet. Es ist benutzerfreundlich, flexibel und unterstützt mehrere Kommunikationskanäle, was es zu einer idealen Wahl für unser Projekt machte.
 
 ### 1.3 Aufgaben und Zuständigkeiten
 
-Das Projekt umfasste die Umsetzung des Ticketsystems und die Erstellung einer ausführlichen Dokumentation. Alle Gruppenmitglieder waren an allen Aufgaben beteiligt, jedoch konzentrierten sich Levin und Noé verstärkt auf die Einrichtung der AWS-Umgebung, während Janis die Dokumentation ausführlich gestaltete.
+Das Projekt umfasste die Einrichtung des Ticketsystems und die Erstellung einer detaillierten Dokumentation. Alle Gruppenmitglieder waren an allen Aufgaben beteiligt. Levin und Noé fokussierten sich auf die Einrichtung der AWS-Umgebung, während Janis die Dokumentation erstellte, um die Schritte und Herausforderungen klar festzuhalten.
 
 ## 2. Installation und Konfiguration
 
