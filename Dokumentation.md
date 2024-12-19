@@ -4,16 +4,16 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
 
 ## Inhaltsverzeichnis
 
-1. [Projektinformationen](#projektinformationen)
-   1.1 [Aufgabenstellung](#aufgabenstellung)
-   1.2 [Wahl des Ticketsystems](#wahl-des-ticketsystems)
-   1.3 [Aufgaben und Zuständigkeiten](#aufgaben-und-zuständigkeiten)
-2. [Installation und Konfiguration](#installation-und-konfiguration)
-   1.1 [Erklärung des Codes](#erklärung-des-codes)
-   1.2 [Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)
-3. [Anleitung](#anleitung)
-4. [Testfälle](#testfälle)
-5. [Reflexion](#reflexion)
+1. [Projektinformationen](#projektinformationen)  
+   1.1 [Aufgabenstellung](#aufgabenstellung)  
+   1.2 [Wahl des Ticketsystems](#wahl-des-ticketsystems)  
+   1.3 [Aufgaben und Zuständigkeiten](#aufgaben-und-zuständigkeiten)  
+2. [Installation und Konfiguration](#installation-und-konfiguration)  
+   1.1 [Erklärung des Codes](#erklärung-des-codes)  
+   1.2 [Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)  
+3. [Anleitung](#anleitung)  
+4. [Testfälle](#testfälle)  
+5. [Reflexion](#reflexion)  
 
 ## 1. Projektinformationen
 
