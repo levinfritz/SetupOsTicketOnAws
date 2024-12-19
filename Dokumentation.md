@@ -248,10 +248,11 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 ## 5. Reflexion
 
 ### Levin Fritz
-Ich konnte viel über die Automatisierung von Cloud-Infrastrukturen lernen. Besonders das Debuggen war lehrreich. Insgesamt hat das Projekt mein Verständnis für AWS und Automatisierung deutlich verbessert.
+Das Projekt war herausfordernd, da uns klare Anweisungen fehlten und wir ohne viel Kontext starteten. Anfangs hatten wir Schwierigkeiten, den richtigen Ansatz zu finden, aber durch gute Teamarbeit und klare Kommunikation fanden wir schliesslich unseren Weg. Die Arbeit mit Terraform und der Shell war neu für mich und spannend. Die beim Debuggen auftretenden Probleme waren oft komplex, doch durch Geduld und Analyse fanden wir Lösungen. Für zukünftige Projekte würde ich mehr Zeit in die anfängliche Recherche und Planung investieren. Dank genug Zeit für Überarbeitungen konnten wir das Projekt entspannt abschliessen.
 
 ### Noé Messmer
-Das Projekt war sehr spannend, und ich konnte mein Wissen über die Cloud und Linux-Administration erweitern. Für das nächste Projekt würde ich die Kommunikation und Aufgabenteilung in der Gruppe verbessern.
+Das Projekt war anspruchsvoll, da der Start sehr offen war. Es war schwierig, den Einstieg zu finden, aber durch Teamarbeit entwickelten wir eine Struktur. Ich lernte viel über Cloud und Terraform. Das Einarbeiten in neue Technologien war herausfordernd, aber lehrreich. Die Konfigurations- und Testprobleme waren nicht trivial, aber durch Analyse und Teamdiskussionen lösten wir sie gut. Beim nächsten Projekt würde ich mehr auf Anfangsplanung und Rollenverteilung achten. Insgesamt konnten wir das Projekt erfolgreich und ohne Zeitdruck abschliessen.
 
 ### Janis Mora
-Ich fand das Projekt eine gute praktische Übung. Die Verbindung von Theorie und Praxis war sehr lehrreich. Für zukünftige Projekte sollten wir die Planungsphase intensiver gestalten.
+Das Projekt war anfangs anspruchsvoll, da es keine klaren Vorgaben gab und wir uns selbst orientieren mussten. Anfangs war es schwer, die ersten Schritte zu planen, aber durch Teamarbeit fanden wir eine Lösung. Besonders die Erstellung der Dokumentation war eine Herausforderung, aber auch eine wertvolle Erfahrung. Die Verbindung von Praxis und Theorie war sehr interessant, und ich lernte viel Neues. Für zukünftige Projekte würde ich mehr Zeit in die Planung und Recherche investieren. Am Ende hatten wir genug Zeit für Korrekturen und schlossen das Projekt entspannt ab.
+
