@@ -23,7 +23,6 @@ WEB_SERVER_IP=$(terraform output -raw web_server_public_ip)
 DB_SERVER_PUBLIC_IP=$(terraform output -raw db_server_public_ip)
 
 # Zeige die Server-IPs an
-echo "Die Server-Instanzen werden gestartet. Bitte warten..."
 echo "Webserver IP: $WEB_SERVER_IP"
 echo "Datenbankserver IP: $DB_SERVER_PUBLIC_IP"
 
@@ -52,3 +51,4 @@ echo -e "\nInstallation abgeschlossen!"
 # Abschlussmeldung
 echo "Die Installation ist abgeschlossen!"
 echo "Webserver: http://$WEB_SERVER_IP"
+echo "DBserver:  $DB_SERVER_PUBLIC_IP"
