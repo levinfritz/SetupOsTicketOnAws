@@ -1,45 +1,40 @@
 # Dokumentation M346-Ticketsystem
 
-Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Janis Mora erstellt. Diese Dokumentation beschreibt das gesamte Projekt von der Planung bis zum fertigen Skript. Ebenfalls folgt eine Anleitung, wie das Ticketsystem anhand unseres Skriptes zu installieren ist.
+Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Janis Mora erstellt. Diese Dokumentation beschreibt das gesamte Projekt von der Planung bis zum fertigen Skript. Ebenso wird eine Anleitung zur Installation des Ticketsystems mit unserem Skript bereitgestellt.
 
-[**1. Projektinformationen**](#anker)  
-[**1.1 Aufgabenstellung**](#anker1)  
-[**1.2 Wahl Ticketsystem**](#anker2)  
-[**1.3 Aufgaben und Zuständigkeit**](#anker3)  
-[**2. Installation und Konfiguration**](#anker4)  
-[**2.1 Erklärung des Codes**](#anker8)  
-[**2.2 Begründung für Terraform statt Cloud-Init**](#anker9)  
-[**3. Anleitung**](#anker5)  
-[**4. Testfälle**](#anker6)  
-[**5. Reflexion**](#anker7)
+## Inhaltsverzeichnis
 
-<a name="anker"></a>
+1. [Projektinformationen](#projektinformationen)
+   1. [Aufgabenstellung](#aufgabenstellung)
+   2. [Wahl des Ticketsystems](#wahl-des-ticketsystems)
+   3. [Aufgaben und Zuständigkeiten](#aufgaben-und-zuständigkeiten)
+2. [Installation und Konfiguration](#installation-und-konfiguration)
+   1. [Erklärung des Codes](#erklärung-des-codes)
+   2. [Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)
+3. [Anleitung](#anleitung)
+4. [Testfälle](#testfälle)
+5. [Reflexion](#reflexion)
+
 ## 1. Projektinformationen
 
-In diesem Abschnitt werden grundlegende Informationen zum Projekt wie die gegebene Aufgabe, Wahl des Ticketsystems und die Aufgabenverteilung in der Gruppe aufgezählt.
-
-<a name="anker1"></a>
 ### 1.1 Aufgabenstellung
 
-Für das Projekt musste ein Ticketsystem auf einer AWS-Instanz erstellt werden. Die Installation der Instanzen und des CMS sollte schlussendlich automatisiert werden.
+Für das Projekt sollte ein Ticketsystem auf einer AWS-Instanz eingerichtet werden. Die Installation der Instanzen und des CMS sollte automatisiert erfolgen.
 
-<a name="anker2"></a>
-### 1.2 Wahl Ticketsystem
+### 1.2 Wahl des Ticketsystems
 
-Wir haben uns für osTicket entschieden, da es eine stabile Open-Source-Lösung ist, die alle wesentlichen Funktionen eines Ticketsystems abdeckt. Es bietet eine benutzerfreundliche Oberfläche, flexible Konfigurationsmöglichkeiten und Unterstützung für mehrere Kommunikationskanäle.
+Wir haben uns für osTicket entschieden, da es eine stabile Open-Source-Lösung mit umfangreichen Funktionen ist. Es bietet eine benutzerfreundliche Oberfläche, flexible Konfigurationsmöglichkeiten und Unterstützung für mehrere Kommunikationskanäle.
 
-<a name="anker3"></a>
-### 1.3 Aufgaben und Zuständigkeit
+### 1.3 Aufgaben und Zuständigkeiten
 
-Für das Projekt musste das Ticketsystem umgesetzt sowie eine ausführliche Dokumentation gestaltet werden. Grundsätzlich war jedes Gruppenmitglied bei allen Aufgaben beteiligt. Levin und Noé konzentrierten sich jedoch stärker auf die Einrichtung der AWS-Umgebung, während Janis die Dokumentation ausführlich gestaltete.
+Das Projekt umfasste die Umsetzung des Ticketsystems und die Erstellung einer ausführlichen Dokumentation. Alle Gruppenmitglieder waren an allen Aufgaben beteiligt, jedoch konzentrierten sich Levin und Noé verstärkt auf die Einrichtung der AWS-Umgebung, während Janis die Dokumentation ausführlich gestaltete.
 
-<a name="anker4"></a>
 ## 2. Installation und Konfiguration
 
-Für die Umsetzung haben wir verschiedene Skripte verwendet:
+### Verwendete Skripte
 
 - **[`main.tf`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/main.tf):**  
-  Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren.
+  Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schüsselpaaren.
 
 - **[`web-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/web-init.sh):**  
   Installiert und konfiguriert osTicket auf einer Apache-Instanz. Die Verbindung zur Datenbank wird automatisch hergestellt.
@@ -50,7 +45,6 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 - **[`deploy.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/deploy.sh):**  
   Automatisiert die Installation von Terraform, führt die Terraform-Skripte aus und stellt sicher, dass die Datenbank-IP in die Webserver-Konfiguration eingefügt wird.
 
-<a name="anker8"></a>
 ### 2.1 Erklärung des Codes
 
 #### Terraform (`main.tf`)
@@ -83,86 +77,74 @@ Für die Umsetzung haben wir verschiedene Skripte verwendet:
 - Ermittelt die IP-Adressen der Instanzen und übergibt die private Datenbank-IP an das Webserver-Setup.
 - Gibt die öffentliche IP-Adresse des Webservers aus, um den Zugriff über den Browser zu ermöglichen.
 
-<a name="anker9"></a>
 ### 2.2 Begründung für Terraform statt Cloud-Init
 
-Wir haben uns bewusst dafür entschieden, Terraform-Skripte anstelle von Cloud-Init-Skripten zu verwenden. Der Grund dafür ist, dass Terraform eine leistungsstarke und deklarative Methode zur Verwaltung der gesamten Infrastruktur bietet, die es uns ermöglicht, die Ressourcen wie EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaare konsistent und wiederholbar bereitzustellen. Hier einige der Hauptgründe:
+Terraform bietet eine leistungsstarke und deklarative Methode zur Verwaltung der gesamten Infrastruktur. Dies ermöglicht eine konsistente Bereitstellung und Verwaltung von Ressourcen wie EC2-Instanzen, Sicherheitsgruppen und Schlüsselpaaren. Vorteile im Vergleich zu Cloud-Init:
 
-1. **Wiederholbarkeit und Konsistenz:** Terraform ermöglicht es uns, Infrastruktur als Code zu definieren, sodass die Bereitstellung in verschiedenen Umgebungen immer auf die gleiche Weise erfolgt. Dies stellt sicher, dass keine Abweichungen zwischen den Deployments auftreten.
-2. **Zustandsmanagement:** Terraform speichert den Zustand der Infrastruktur, sodass wir leicht feststellen können, ob und wie die Infrastruktur geändert wurde. Dies erleichtert das Management und hilft uns, Änderungen nachzuvollziehen und zu testen.
-3. **Komplexität der Infrastruktur:** Das Projekt erfordert die Erstellung und Verwaltung mehrerer Ressourcen wie EC2-Instanzen und Sicherheitsgruppen. Terraform ist besser geeignet, um diese Infrastruktur effizient zu verwalten, da Cloud-Init-Skripte hauptsächlich für die Konfiguration der Instanzen gedacht sind und nicht die gesamte Infrastrukturabstraktion übernehmen.
-4. **Erweiterbarkeit:** Mit Terraform können wir die Infrastruktur in einer strukturierten Weise aufbauen und zukünftige Änderungen oder Erweiterungen problemlos umsetzen. Beispielsweise könnten wir zusätzliche EC2-Instanzen, S3-Buckets oder RDS-Datenbanken hinzufügen, ohne die gesamten Infrastrukturskripte neu zu schreiben.
-5. **Integration mit anderen Tools:** Terraform lässt sich leicht in CI/CD-Pipelines integrieren, was uns erlaubt, die Infrastruktur automatisch bei jeder Änderung zu aktualisieren.
+1. **Wiederholbarkeit und Konsistenz:** Infrastruktur als Code sorgt für konsistente Deployments in unterschiedlichen Umgebungen.
+2. **Zustandsmanagement:** Terraform speichert den Infrastrukturzustand, was die Nachverfolgung von Änderungen erleichtert.
+3. **Komplexitätsmanagement:** Terraform eignet sich hervorragend für die Verwaltung mehrerer Ressourcen.
+4. **Erweiterbarkeit:** Infrastruktur kann strukturiert erweitert werden, z. B. durch Hinzufügen von EC2-Instanzen oder S3-Buckets.
+5. **Integration:** Terraform lässt sich problemlos in CI/CD-Pipelines integrieren.
 
-Cloud-Init ist eine großartige Lösung für die erste Konfiguration von Instanzen, jedoch eignet sich Terraform besser für das Management und die Automatisierung der gesamten Infrastruktur. Daher haben wir uns entschieden, Terraform als primäres Tool zu verwenden, um die Infrastruktur bereitzustellen.
+Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht jedoch für das umfassende Infrastrukturmanagement.
 
-<a name="anker5"></a>
 ## 3. Anleitung
 
-### 1. Voraussetzungen
+### Voraussetzungen
 
 - AWS CLI ist installiert und konfiguriert.
-- Eine Ubuntu Maschine ist verfügbar und mit den notwendigen Berechtigungen ausgestattet.
+- Eine Ubuntu-Maschine ist verfügbar und mit den notwendigen Berechtigungen ausgestattet.
 - `git` ist installiert.
 
-### 2. Installation
+### Schritte
 
 1. Klone das Repository:
    ```bash
    git clone https://github.com/levinfritz/M346-Levin-Noe-Janis.git
    cd M346-Levin-Noe-Janis/Konfiguration
-2. Mache das  deploy.sh Skript ausführbar und führe es aus. 
-    ```bash
+   ```
+2. Mache das `deploy.sh`-Skript ausführbar und starte die Installation:
+   ```bash
    chmod u+x deploy.sh
    ./deploy.sh
+   ```
+3. Greife auf den Webserver zu: Öffne die IP-Adresse des Webservers in deinem Browser.
+4. Klicke auf **Continue**.
+5. Fülle die Felder aus:
+   - **MySQL Hostname:** `<DB_SERVER_PUBLIC_IP>`
+   - **MySQL Database:** `osticket`
+   - **MySQL Username:** `osticketuser`
+   - **MySQL Password:** `securepassword`
+   Klicke anschließend auf **Install Now**.
+6. Beispiel:
+   ![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
-3. Greife auf den Webserver zu: Öffne die IP-Adresse des Webservers in deinem Browser. 
+## 4. Testfälle
 
-4. Klicke auf "Continue" 
+### Testfall 1: Webserver erreichbar
 
-5. Fülle die Felder nach deinen Bedürfnissen aus:  
-   Datenbankeinstellungen:
-   - MySQL Hostname: <DB_SERVER_PUBLIC_IP>
-   - MySQL Database: osticket
-   - MySQL Username: osticketuser
-   - MySQL Password: securepassword  
-   Klicke Anschliessend auf "Install Now"  
+- **Datum:** 09.12.2024  
+- **Testperson:** Levin Fritz  
+- **Ergebnis:** Der Webserver war zunächst nicht erreichbar. Nach Anpassungen im `deploy.sh`-Skript wurde eine Überprüfung eingebaut, um sicherzustellen, dass die Installation abgeschlossen ist.
 
-6. Mögliche Lösung  
-![image](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
+![Fehlerbehebung](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)
 
-<a name="anker6"></a>
-## 4. Testfälle  
-**Testfall 1** <br>
-Titel: Überprüfe, ob der Webserver erreichbar ist.<br>
-Datum: 09.12.2024<br>
-Testperson: Levin Fritz<br>
+### Testfall 2: Verbindung zur Datenbank
 
-![image2](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)  
+- **Datum:** 09.12.2024  
+- **Testperson:** Levin Fritz  
+- **Ergebnis:** Die Datenbankverbindung wurde erfolgreich getestet. Benutzer und Datenbank wurden korrekt eingerichtet.
 
-Nach der erfolgreichen Ausführung des Deploy Skripts habe ich versucht den Webserver über die Öffentliche IP-Adresse zu erreichen , dies hat wie im Screenshot zu sehen noch nicht geklappt, jedoch wurden die Instanzen und Sicherheitsgruppen richtig erstellt.
+![Erfolgreiche Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Erfolgreiche%20Installation.png)
 
-Ich habe mich danach per SSH mit dem Webserver verbunden, um die Konfiguration zu überprüfen und habe festgestellt, dass ich noch zu früh bin und die Installation noch nicht abgeschlossen war. 
+## 5. Reflexion
 
-Als Lösung habe ich dannn im Deploy.sh Skript eine Überprüfung eingebaut, die schaut ob die Installation auf dem Webserver bereits abgeschlossen ist oder nicht und anschliessend Rückmeldung gibt. Standardmässig habe ich ebenfalls einen 5 Minuten Timer eingebaut, damit den Servern genug Zeit für die Installation gelassen wird.
-  
-**Testfall 2**  
-Titel: Teste die Verbindung zur Datenbank.<br>
-Datum: 09.12.2024<br>
-Testperson: Levin Fritz<br>
-
-Ich habe die Verbindung zur Datenbank über die MariaDB CLI getestet. Die Datenbank und der Benutzer wurden korrekt eingerichtet und waren vom Webserver aus erreichbar.
-
-![image3](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Erfolgreiche%20Installation.png)
-
-<a name="anker7"></a>
-## 5. Reflexion 
-
-**Levin Fritz**  
+### Levin Fritz
 Ich konnte viel über die Automatisierung von Cloud-Infrastrukturen lernen. Besonders das Debuggen war lehrreich. Insgesamt hat das Projekt mein Verständnis für AWS und Automatisierung deutlich verbessert.
 
-**Noé Messmer**  
+### Noé Messmer
 Das Projekt war sehr spannend, und ich konnte mein Wissen über die Cloud und Linux-Administration erweitern. Für das nächste Projekt würde ich die Kommunikation und Aufgabenteilung in der Gruppe verbessern.
 
-**Janis Mora**  
+### Janis Mora
 Ich fand das Projekt eine gute praktische Übung. Die Verbindung von Theorie und Praxis war sehr lehrreich. Für zukünftige Projekte sollten wir die Planungsphase intensiver gestalten.
