@@ -34,7 +34,7 @@ Das Projekt umfasste die Umsetzung des Ticketsystems und die Erstellung einer au
 ### Verwendete Skripte
 
 - **[`main.tf`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/main.tf):**  
-  Definiert die gesamte Infrastruktur auf AWS, einschließlich EC2-Instanzen, Sicherheitsgruppen und Schüsselpaaren.
+  Definiert die gesamte Infrastruktur auf AWS, einschliesslich EC2-Instanzen, Sicherheitsgruppen und Schüsselpaaren.
 
 - **[`web-init.sh`](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Konfiguration/web-init.sh):**  
   Installiert und konfiguriert osTicket auf einer Apache-Instanz. Die Verbindung zur Datenbank wird automatisch hergestellt.
@@ -223,7 +223,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
    - **MySQL Database:** `osticket`
    - **MySQL Username:** `osticketuser`
    - **MySQL Password:** `securepassword`
-   Klicke anschließend auf **Install Now**.
+   Klicke anschliessend auf **Install Now**.
 6. Mögliche Lösung:
    ![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
