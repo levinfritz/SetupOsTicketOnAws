@@ -46,95 +46,133 @@ Das Projekt umfasste die Umsetzung des Ticketsystems und die Erstellung einer au
   Automatisiert die Installation von Terraform, führt die Terraform-Skripte aus und stellt sicher, dass die Datenbank-IP in die Webserver-Konfiguration eingefügt wird.
 
 
+
 ### 2.1 Erklärung des Codes
 
 #### Terraform (`main.tf`)
-  - Zwei EC2-Instanzen werden erstellt: eine für den Webserver und eine für die Datenbank.
-  - Sicherheitsgruppen regeln den Zugriff: HTTP/HTTPS für den Webserver und MySQL für die Datenbank.
-  - Die Datenbank-Instanz wird über ihre private IP-Adresse vom Webserver aus angesprochen.
-  - Die öffentliche IP-Adresse des Webservers und die private IP-Adresse des Datenbankservers werden exportiert, um sie im Deploy-Skript zu verwenden.
 
-- **Beispiel: Sicherheitsgruppe für den Webserver**  
+- **Zwei EC2-Instanzen werden erstellt:**
+  ```hcl
+  resource "aws_instance" "web_server" {
+    ami           = "ami-0c02fb55956c7d316"
+    instance_type = "t2.micro"
+    key_name      = aws_key_pair.deployer_key.key_name
+    security_groups = [aws_security_group.web_sg.name]
+    user_data = file("web-init.sh")
+    tags = {
+      Name = "WebServer"
+    }
+  }
+
+  resource "aws_instance" "db_server" {
+    ami           = "ami-0c02fb55956c7d316"
+    instance_type = "t2.micro"
+    key_name      = aws_key_pair.deployer_key.key_name
+    security_groups = [aws_security_group.db_sg.name]
+    user_data = file("db-init.sh")
+    tags = {
+      Name = "DBServer"
+    }
+  }
+  ```
+  **Erklärung:** Es werden zwei EC2-Instanzen bereitgestellt, eine für den Webserver und eine für die Datenbank.
+
+- **Sicherheitsgruppen für Zugriffskontrolle:**
   ```hcl
   resource "aws_security_group" "web_sg" {
-    name_prefix = "web-sg-"
     ingress {
       from_port   = 80
       to_port     = 80
       protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     }
-    egress {
-      from_port   = 0
-      to_port     = 0
-      protocol    = "-1"
+  }
+
+  resource "aws_security_group" "db_sg" {
+    ingress {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
-  ```  
-  **Erklärung:** Diese Sicherheitsgruppe erlaubt HTTP-Zugriff (Port 80) von allen IP-Adressen und alle ausgehenden Verbindungen.  
+  ```
+  **Erklärung:** Die Sicherheitsgruppen regeln, dass der Webserver HTTP-Zugriff erlaubt und die Datenbank nur über MySQL erreichbar ist.
 
-- **Outputs:**  
+- **Outputs der IP-Adressen:**
   ```hcl
   output "web_server_public_ip" {
     value = aws_instance.web_server.public_ip
   }
-  ```  
-  **Erklärung:** Die öffentliche IP-Adresse des Webservers wird exportiert, damit sie später im `deploy.sh`-Skript verwendet werden kann.
+
+  output "db_server_public_ip" {
+    value = aws_instance.db_server.public_ip
+  }
+  ```
+  **Erklärung:** Exportiert die öffentlichen und privaten IP-Adressen, um sie im `deploy.sh`-Skript zu verwenden.
+
+---
 
 #### Webserver-Initialisierung (`web-init.sh`)
-- Installiert alle notwendigen Pakete wie Apache, PHP und osTicket.
-- Lädt osTicket von GitHub herunter und entpackt es.
-- Verschiebt die osTicket-Dateien in das Webroot-Verzeichnis von Apache.
-- Passt die Datei `ost-config.php` automatisch an, um die Verbindung zur Datenbank herzustellen:
-  - Datenbank-Host, -Name, -Benutzer und -Passwort werden eingetragen.  
 
-- **Installation von Apache und PHP**  
+- **Installation von Apache und PHP:**
   ```bash
   sudo yum install -y httpd php php-mysqli wget unzip
-  ```  
-  **Erklärung:** Dieser Befehl installiert den Apache-Webserver, PHP und zusätzliche PHP-Module, die für osTicket erforderlich sind.
+  ```
+  **Erklärung:** Apache und PHP werden installiert, um den Webserver und die Anwendung osTicket bereitzustellen.
 
-- **Herunterladen von osTicket**  
+- **Herunterladen und Entpacken von osTicket:**
   ```bash
   wget -O /tmp/osTicket.zip https://github.com/osTicket/osTicket/releases/download/v1.18.1/osTicket-v1.18.1.zip
-  ```  
-  **Erklärung:** osTicket wird von der offiziellen GitHub-Seite heruntergeladen und lokal gespeichert.
+  sudo unzip -o /tmp/osTicket.zip -d /var/www/html/osticket
+  ```
+  **Erklärung:** osTicket wird von GitHub heruntergeladen und in das Apache-Webverzeichnis entpackt.
+
+- **Konfiguration von Apache:**
+  ```bash
+  sudo sed -i "s|DocumentRoot "/var/www/html"|DocumentRoot "/var/www/html"|" /etc/httpd/conf/httpd.conf
+  ```
+  **Erklärung:** Apache wird so konfiguriert, dass es das korrekte Webroot für osTicket verwendet.
+
+---
 
 #### Datenbank-Initialisierung (`db-init.sh`)
-- Installiert MariaDB und setzt die Basis-Konfiguration.
-- Erstellt die osTicket-Datenbank und einen dedizierten Benutzer für die Anwendung.
-- Aktiviert Remote-Zugriff auf die Datenbank und setzt entsprechende Berechtigungen.
 
-- **Erstellung der Datenbank und Benutzer**  
+- **Installation von MariaDB:**
+  ```bash
+  sudo yum install -y mariadb-server
+  ```
+  **Erklärung:** Installiert MariaDB, das als Datenbank für osTicket verwendet wird.
+
+- **Datenbank und Benutzer einrichten:**
   ```sql
   CREATE DATABASE osticket;
   CREATE USER 'osticketuser'@'%' IDENTIFIED BY 'securepassword';
   GRANT ALL PRIVILEGES ON osticket.* TO 'osticketuser'@'%';
   FLUSH PRIVILEGES;
-  ```  
-  **Erklärung:** Es wird eine neue Datenbank `osticket` erstellt, und der Benutzer `osticketuser` erhält vollständige Zugriffsrechte.
+  ```
+  **Erklärung:** Erstellt die Datenbank `osticket` und den Benutzer `osticketuser` mit vollständigen Zugriffsrechten.
+
+---
 
 #### Deploy-Skript (`deploy.sh`)
-- Installiert Terraform, initialisiert das Projekt und wendet die Konfiguration an.
-- Ermittelt die IP-Adressen der Instanzen und übergibt die private Datenbank-IP an das Webserver-Setup.
-- Gibt die öffentliche IP-Adresse des Webservers aus, um den Zugriff über den Browser zu ermöglichen. 
 
-- **Initialisierung von Terraform**  
+- **Terraform initialisieren und anwenden:**
   ```bash
   terraform init
-  ```  
-  **Erklärung:** Dieser Befehl initialisiert das Terraform-Projekt, lädt benötigte Plugins und überprüft die Konfiguration.
+  terraform apply -auto-approve
+  ```
+  **Erklärung:** Initialisiert Terraform und wendet die Konfiguration an, um die Infrastruktur zu erstellen.
 
-- **Timer für Statusanzeige**  
+- **Wartezeit während der Installation:**
   ```bash
-  for ((elapsed_seconds=0; elapsed_seconds<=total_seconds; elapsed_seconds+=1)); do
-    echo -ne "${percent}% [${bar}]
+  for ((elapsed_seconds=0; elapsed_seconds<=240; elapsed_seconds+=1)); do
+    echo -ne "${elapsed_seconds}s elapsed...
 "
     sleep 1
   done
-  ```  
-  **Erklärung:** Dieser Timer zeigt den Fortschritt der Installation an und wartet, bis die Konfiguration abgeschlossen ist.
+  ```
+  **Erklärung:** Wartet mit einem Fortschrittsbalken, bis die Installation abgeschlossen ist.
 
 ### 2.2 Begründung für Terraform statt Cloud-Init
 
