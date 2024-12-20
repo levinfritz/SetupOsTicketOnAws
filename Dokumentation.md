@@ -233,7 +233,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 
 6. Klicke anschliessend auf "Install Now".  
 7. Mögliche Lösung:
-   ![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
+![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
 ## 4. Testfälle
 
@@ -243,7 +243,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 - **Testperson:** Levin Fritz  
 - **Ergebnis:** Nach der erfolgreichen Ausführung des deploy.sh-Skripts wollten wir auf den Webserver zugreifen, aber dieser war zunächst nicht erreichbar. Der Grund war, dass die Installation noch nicht abgeschlossen war, da wir zu früh versucht hatten, darauf zuzugreifen. Um dieses Problem zu lösen, haben wir das Skript angepasst und eine Überprüfung eingebaut, die sicherstellt, dass die Installation vollständig abgeschlossen ist, bevor der Webserver zugänglich wird. So wird der Zugriff nun erst nach erfolgreichem Abschluss der Installation ermöglicht.
 
-![Fehlerbehebung](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/FehlerWebserver.png)
+![Fehlerbehebung](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Fehler_Webserver.png)
 
 ### Testfall 2: Verbindung zur Datenbank
 
@@ -251,7 +251,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 - **Testperson:** Levin Fritz  
 - **Ergebnis:** Nach der erfolgreichen Aufsetzung des Webservers wollten wir OS-Ticket fertig konfigurieren. Die genaue Konfiguration wird später detailliert beschrieben. Währenddessen wurde die Datenbankverbindung erfolgreich getestet, und sowohl der Benutzer als auch die Datenbank wurden korrekt eingerichtet. Damit war die Grundlage für einen reibungslosen Betrieb von OS-Ticket geschaffen.
 
-![Erfolgreiche Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Erfolgreiche%20Installation.png)
+![Erfolgreiche Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Erfolgreiche_Installation.png)
 
 ## 5. Reflexion
 
