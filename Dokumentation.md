@@ -4,16 +4,16 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
 
 ## Inhaltsverzeichnis
 
-1. &nbsp;&nbsp;&nbsp;[Projektinformationen](#projektinformationen)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Aufgabenstellung](#aufgabenstellung)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Wahl des Ticketsystems](#wahl-des-ticketsystems)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Aufgaben und Zuständigkeiten](#aufgaben-und-zuständigkeiten)  
-2. &nbsp;&nbsp;&nbsp;[Installation und Konfiguration](#installation-und-konfiguration)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Erklärung des Codes](#erklärung-des-codes)  
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)  
-3. &nbsp;&nbsp;&nbsp;[Anleitung](#anleitung)  
-4. &nbsp;&nbsp;&nbsp;[Testfälle](#testfälle)  
-5. &nbsp;&nbsp;&nbsp;[Reflexion](#reflexion)
+1. [Projektinformationen](#projektinformationen)  
+   1.1 [Aufgabenstellung](#11-aufgabenstellung)  
+   1.2 [Wahl des Ticketsystems](#12-wahl-des-ticketsystems)  
+   1.3 [Aufgaben und Zuständigkeiten](#13-aufgaben-und-zuständigkeiten)  
+2. [Installation und Konfiguration](#2-installation-und-konfiguration)  
+   2.1 [Erklärung des Codes](#21-erklärung-des-codes)  
+   2.2 [Begründung für Terraform statt Cloud-Init](#22-begründung-für-terraform-statt-cloud-init)  
+3. [Anleitung](#3-anleitung)  
+4. [Testfälle](#4-testfälle)  
+5. [Reflexion](#5-reflexion)
 
 
 ## 1. Projektinformationen
