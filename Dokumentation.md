@@ -220,7 +220,7 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
    ./deploy.sh
    ```
 3. Greife auf den Webserver zu: Öffne die IP-Adresse des Webservers in deinem Browser.
-4. Klicke auf **Continue**.
+4. Klicke auf "Continue".
 5. Fülle die Felder aus:  
 
 | Parameter            | Wert                        |
@@ -230,8 +230,8 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 | **MySQL Username**    | osticketuser               |
 | **MySQL Password**    | securepassword             |
 
-   Klicke anschliessend auf "Install Now".  
-6. Mögliche Lösung:
+6. Klicke anschliessend auf "Install Now".  
+7. Mögliche Lösung:
    ![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
 ## 4. Testfälle
