@@ -222,14 +222,15 @@ Cloud-Init eignet sich eher für die Initialkonfiguration von Instanzen, nicht j
 3. Greife auf den Webserver zu: Öffne die IP-Adresse des Webservers in deinem Browser.
 4. Klicke auf **Continue**.
 5. Fülle die Felder aus:  
+
 | Parameter            | Wert                        |
 |----------------------|-----------------------------|
-| **MySQL Hostname**    | `<DB_SERVER_PUBLIC_IP>`     |
-| **MySQL Database**    | `osticket`                  |
-| **MySQL Username**    | `osticketuser`              |
-| **MySQL Password**    | `securepassword`            |
+| **MySQL Hostname**    | <DB_SERVER_PUBLIC_IP>      |
+| **MySQL Database**    | osticket                   |
+| **MySQL Username**    | osticketuser               |
+| **MySQL Password**    | securepassword             |
 
-   Klicke anschliessend auf **Install Now**.
+   Klicke anschliessend auf "Install Now".
 6. Mögliche Lösung:
    ![Installation](https://github.com/levinfritz/M346-Levin-Noe-Janis/blob/main/Bilder/Installation_OS-Ticket.png)
 
