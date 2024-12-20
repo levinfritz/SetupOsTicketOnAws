@@ -13,7 +13,7 @@ Dieses Repository wurde in Zusammenarbeit von Levin Fritz, Noé Messmer und Jani
    2.2 [Begründung für Terraform statt Cloud-Init](#begründung-für-terraform-statt-cloud-init)  
 3. [Anleitung](#anleitung)  
 4. [Testfälle](#testfälle)  
-5. [Reflexion](#reflexion)  
+5. [Reflexion](#reflexion)
 
 ## 1. Projektinformationen
 
